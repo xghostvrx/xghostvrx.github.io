@@ -53,145 +53,153 @@
             </section>
             <section id="What_You_Should_Know" class="main-section">
                 <header>What you should know</header>
-                <p>This guide assumes you have the following basic background:</p>
-                <ul>
-                    <li>
-                        <p>
-                            A general understanding of computational technology such as computers and what is a terminal.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            A good working knowledge of programming syntax for variables, loops conditionals, and functions.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            A desire to learn and stay curious such as to expand your skills.
-                        </p>
-                    </li>
-                </ul>
+                <article>
+                    <p>This guide assumes you have the following basic background:</p>
+                    <ul>
+                        <li>
+                            <p>
+                                A general understanding of computational technology such as computers and what is a terminal.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                A good working knowledge of programming syntax for variables, loops conditionals, and functions.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                A desire to learn and stay curious such as to expand your skills.
+                            </p>
+                        </li>
+                    </ul>
+                </article>
             </section>
             <section id="Python" class="main-section">
                 <header>Python</header>
-                <p>
-                    Python's importance in AI and data technologies stems from its versatility, which allows developers to efficiently implement complex algorithms and workflows. Python's readability and simplicity facilitate the rapid development and prototyping of AI models, making it an ideal choice for researchers and practitioners. The language's extensive ecosystem of libraries and frameworks, such as NumPy, pandas, and scikit-learn, provides robust tools for data manipulation, analysis, and machine learning.
-                </p>
-                <p>
-                    These libraries offer efficient data structures and algorithms that enable developers to process large datasets and perform complex computations with ease. Furthermore, Python's support for high-level programming concepts, such as functional and object-oriented programming, allows developers to write concise and maintainable code, which is crucial for building and maintaining AI systems.
-                </p>
-                <p>
-                    In summary, Python's rich features and libraries make it a cornerstone of AI and data technologies, empowering developers to create innovative solutions in these fields.
-                </p>
+                <article>
+                    <p>
+                        Python's importance in AI and data technologies stems from its versatility, which allows developers to efficiently implement complex algorithms and workflows. Python's readability and simplicity facilitate the rapid development and prototyping of AI models, making it an ideal choice for researchers and practitioners. The language's extensive ecosystem of libraries and frameworks, such as NumPy, pandas, and scikit-learn, provides robust tools for data manipulation, analysis, and machine learning.
+                    </p>
+                    <p>
+                        These libraries offer efficient data structures and algorithms that enable developers to process large datasets and perform complex computations with ease. Furthermore, Python's support for high-level programming concepts, such as functional and object-oriented programming, allows developers to write concise and maintainable code, which is crucial for building and maintaining AI systems.
+                    </p>
+                    <p>
+                        In summary, Python's rich features and libraries make it a cornerstone of AI and data technologies, empowering developers to create innovative solutions in these fields.
+                    </p>
+                </article>
             </section>
             <section id="Variables" class="main-section">
                 <header>Variables</header>
-                <p>
-                    In Python, variables are used to store data values. Unlike some other programming languages, Python does not require explicit declaration of variables. You can simply assign a value to a variable, and Python will automatically determine the variable type based on the value assigned. Variable names can contain letters, numbers, and underscores, but they cannot start with a number. Python is case-sensitive, so variables with different capitalization are considered different variables.
-                </p>
-                <span>Example:</span>
-                <code># Assigning values to variables
-                    x = 10
-                    name = "Alice"
-                    is_valid = True
+                <article>
+                    <p>
+                        In Python, variables are used to store data values. Unlike some other programming languages, Python does not require explicit declaration of variables. You can simply assign a value to a variable, and Python will automatically determine the variable type based on the value assigned. Variable names can contain letters, numbers, and underscores, but they cannot start with a number. Python is case-sensitive, so variables with different capitalization are considered different variables.
+                    </p>
+                    <span>Example:</span>
+                    <code># Assigning values to variables
+                        x = 10
+                        name = "Alice"
+                        is_valid = True
 
-                    # Printing the values of variables
-                    print(x)       # Output: 10
-                    print(name)    # Output: Alice
-                    print(is_valid)   # Output: True
-                </code>
-                <p>
-                    Variables can also be reassigned to different values and types:
-                </p>
-                <code>x = 10
-                    print(x)       # Output: 10
+                        # Printing the values of variables
+                        print(x)       # Output: 10
+                        print(name)    # Output: Alice
+                        print(is_valid)   # Output: True
+                    </code>
+                    <p>
+                        Variables can also be reassigned to different values and types:
+                    </p>
+                    <code>x = 10
+                        print(x)       # Output: 10
 
-                    x = "Hello"
-                    print(x)       # Output: Hello
-                </code>
-                <p>
-                    Python also allows multiple assignments in a single line:
-                </p>
-                <code>a, b, c = 1, 2, 3
-                    print(a, b, c)   # Output: 1 2 3
-                </code>
-                <p>
-                    Python also supports dynamic typing, meaning you can change the type of a variable based on the value assigned to it:
-                </p>
-                <code>x = 10
-                    print(x)       # Output: 10
+                        x = "Hello"
+                        print(x)       # Output: Hello
+                    </code>
+                    <p>
+                        Python also allows multiple assignments in a single line:
+                    </p>
+                    <code>a, b, c = 1, 2, 3
+                        print(a, b, c)   # Output: 1 2 3
+                    </code>
+                    <p>
+                        Python also supports dynamic typing, meaning you can change the type of a variable based on the value assigned to it:
+                    </p>
+                    <code>x = 10
+                        print(x)       # Output: 10
 
-                    x = "Hello"
-                    print(x)       # Output: Hello
-                </code>
+                        x = "Hello"
+                        print(x)       # Output: Hello
+                    </code>
+                </article>
             </section>
             <section id="Data_Types" class="main-section">
                 <header>Data Types</header>
-                <p>Python has several built-in data types that are used to represent different types of data. These include:</p>
-                <ol>
-                    <li>
-                        Numeric Types:
-                        <ul>
-                            <li><span class="bold">int:</span> Integer values without decimal points (e.g., 1, 100, -5).</li>
-                            <li><span class="bold">float:</span> Floating-point values with decimal points (e.g., 3.14, -0.001, 2.0).</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Sequence Types:
-                        <ul>
-                            <li><span class="bold">str:</span> String values, which are sequences of characters (e.g., "hello", 'Python', "123").</li>
-                            <li><span class="bold">list:</span> Ordered collections of items (e.g., [1, 2, 3], ['a', 'b', 'c']).</li>
-                            <li><span class="bold">tuple:</span> Immutable ordered collections of items (e.g., (1, 2, 3), ('a', 'b', 'c')).</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Mapping Type:
-                        <ul>
-                            <li><span class="bold">dict:</span> Collection of key-value pairs (e.g., {'key1': 'value1', 'key2': 'value2'}).
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        Set Types:
-                        <ul>
-                            <li><span class="bold">set:</span> Unordered collections of unique items (e.g., {1, 2, 3}, {'a', 'b', 'c'}).</li>
-                            <li><span class="bold">frozenset:</span> Immutable set (e.g., frozenset({1, 2, 3})).</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Boolean Type:
-                        <ul>
-                            <li><span class="bold">bool:</span> Represents truth values, either True or False.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        None Type:
-                        <ul>
-                            <li><span class="bold">None:</span> Represents the absence of a value or a null value.</li>
-                        </ul>
-                    </li>
-                </ol>
-                <p>
-                    Python also supports complex numbers, which are represented as complex data type (e.g., 3+4j).
-                </p>
-                <code># Numeric types
-                    x = 10         # int
-                    y = 3.14       # float
+                <article>
+                    <p>Python has several built-in data types that are used to represent different types of data. These include:</p>
+                    <ol>
+                        <li>
+                            Numeric Types:
+                            <ul>
+                                <li><span class="bold">int:</span> Integer values without decimal points (e.g., 1, 100, -5).</li>
+                                <li><span class="bold">float:</span> Floating-point values with decimal points (e.g., 3.14, -0.001, 2.0).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Sequence Types:
+                            <ul>
+                                <li><span class="bold">str:</span> String values, which are sequences of characters (e.g., "hello", 'Python', "123").</li>
+                                <li><span class="bold">list:</span> Ordered collections of items (e.g., [1, 2, 3], ['a', 'b', 'c']).</li>
+                                <li><span class="bold">tuple:</span> Immutable ordered collections of items (e.g., (1, 2, 3), ('a', 'b', 'c')).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Mapping Type:
+                            <ul>
+                                <li><span class="bold">dict:</span> Collection of key-value pairs (e.g., {'key1': 'value1', 'key2': 'value2'}).
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Set Types:
+                            <ul>
+                                <li><span class="bold">set:</span> Unordered collections of unique items (e.g., {1, 2, 3}, {'a', 'b', 'c'}).</li>
+                                <li><span class="bold">frozenset:</span> Immutable set (e.g., frozenset({1, 2, 3})).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Boolean Type:
+                            <ul>
+                                <li><span class="bold">bool:</span> Represents truth values, either True or False.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            None Type:
+                            <ul>
+                                <li><span class="bold">None:</span> Represents the absence of a value or a null value.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>
+                        Python also supports complex numbers, which are represented as complex data type (e.g., 3+4j).
+                    </p>
+                    <code># Numeric types
+                        x = 10         # int
+                        y = 3.14       # float
 
-                    # Sequence types
-                    name = "Python"  # str
-                    my_list = [1, 2, 3]  # list
-                    my_tuple = (4, 5, 6)  # tuple
+                        # Sequence types
+                        name = "Python"  # str
+                        my_list = [1, 2, 3]  # list
+                        my_tuple = (4, 5, 6)  # tuple
 
-                    # Mapping type
-                    my_dict = {'key1': 'value1', 'key2': 'value2'}  # dict
+                        # Mapping type
+                        my_dict = {'key1': 'value1', 'key2': 'value2'}  # dict
 
-                    # Boolean type
-                    is_valid = True  # bool
+                        # Boolean type
+                        is_valid = True  # bool
 
-                    # None type
-                    value = None  # None
-                </code>
+                        # None type
+                        value = None  # None
+                    </code>
+                </article>
             </section>
         </main>
     </body>
