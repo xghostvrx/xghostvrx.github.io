@@ -14,3 +14,52 @@ body {
   box-sizing: border-box;
   font-size: 1.6rem;
 }
+
+/* navbar */
+#header {
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navbar {
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    border-bottom: 3px solid lightgray;
+    border-bottom-style: dotted;
+    width: 100%;
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navbar ul li {
+    display: inline;
+    margin-left: 20px;
+    float: left;
+}
+
+.navbar ul li a {
+    color: black;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    color: #017143;
+}
+
+.logo {
+    display: block;
+    width: 30%;
+}
+
