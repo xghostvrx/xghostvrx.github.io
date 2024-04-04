@@ -33,6 +33,13 @@ body {
     width: 100%;
 }
 
+.logo, img {
+    display: block;
+    width: 200px;
+    height: auto;
+    padding: 10px 10px;
+}
+
 .navbar ul {
     list-style-type: none;
     display: inline-block;
@@ -58,8 +65,9 @@ body {
     color: #017143;
 }
 
-.logo {
-    display: block;
-    width: 30%;
+/* Mobile view (responsive design */
+@media only screen and (max-width: 832px) {
+    .logo, img {
+        width: 150px;
+    }
 }
-
