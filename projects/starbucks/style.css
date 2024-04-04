@@ -13,7 +13,7 @@ html {
 body {
   box-sizing: border-box;
   font-size: 1.6rem;
-  background-color: #e2fff3;
+  background-color: rgb(212, 233, 226);
 }
 
 /* navbar */
@@ -68,6 +68,20 @@ body {
 
 .navbar ul li a:hover {
     color: #017143;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    max-width: 770px;
+    background: #fff;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 /* Mobile view (responsive design */
