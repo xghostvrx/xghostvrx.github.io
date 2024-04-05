@@ -166,8 +166,33 @@ a:hover {
     background-color: white;
 }
 
+#page-3 ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    list-style-type: none;
+    padding: 0;
+}
+
 #page-4 {
     background-color: white;
+}
+
+#page-4 h2 {
+    text-align: center;
+}
+
+#page-4 h3 {
+    margin-top: 20px;
+}
+
+#page-4 .content {
+    text-align: left;
+}
+
+#page-4 ul {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
 }
 
 .green {
