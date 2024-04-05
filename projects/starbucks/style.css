@@ -105,6 +105,7 @@ a:hover {
     text-align: left;
     margin-right: 25vw;
     z-index: 1;
+    padding: 20px;
 }
 
 .learn-more {
