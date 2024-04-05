@@ -60,14 +60,17 @@ body {
     float: left;
 }
 
-.navbar ul li a {
+a {
     color: black;
+}
+
+.navbar ul li a {
     text-align: center;
     padding: 10px 15px;
     text-decoration: none;
 }
 
-.navbar ul li a:hover {
+a:hover {
     color: #017143;
 }
 
@@ -81,8 +84,13 @@ body {
 .content {
     width: 100%;
     max-width: 770px;
-    background: #fff;
+    background: transparent;
     font-family: 'Noto Sans', sans-serif;
+    text-align: center;
+}
+
+.content h2 {
+    font-size: 4.5vw;
 }
 
 #page-1 {
@@ -94,6 +102,7 @@ body {
 }
 
 #page-1 .content {
+    text-align: left;
     margin-right: 25vw;
     z-index: 1;
 }
@@ -135,6 +144,31 @@ body {
     z-index: -2;
 }
 
+#page-2 {
+    background-color: rgb(0, 117, 74);
+    color: white;
+}
+
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.product {
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.product > img {
+    border-radius: 5px;
+    background-color: white;
+}
+
+#page-4 {
+    background-color: white;
+}
+
 .green {
     color:#017143;
 }
@@ -149,6 +183,21 @@ body {
 
 .uppercase {
     text-transform: uppercase;
+}
+
+footer, footer a {
+    background-color: #017143;
+    color: white;
+    text-align: left;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+footer a:hover {
+    color: black;
+}
+
+footer {
+    padding: 20px;
 }
 
 /* Mobile view (responsive design */
