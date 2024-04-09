@@ -15,7 +15,7 @@ html {
 /* Base Styles */
 body {
   font-size: 1.6rem; /* 16px */
-  background-color: rgb(212, 233, 226);
+  background-color: rgb(242, 240, 235);
 }
 
 /* Navbar Styles */
@@ -86,6 +86,59 @@ body {
   width: 35%;
 }
 
+.emphasis {
+  font-weight: 900;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.green {
+  color: #017143;
+}
+
+.page {
+  margin-top: 100px;
+  padding: 20px;
+}
+
+.content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container span {
+  font-size: 5rem;
+}
+
+.learn-more {
+  margin-top: 20px;
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.learn-more:hover {
+  border: 3px solid white;
+  background-color: rgb(0, 117, 74);
+  color: white;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
   .navbar {
@@ -131,7 +184,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    border-right: 2px dotted rgb(52, 52, 52);
+    border-right: 3px dotted rgb(52, 52, 52);
   }
 
   .side-nav.active {
@@ -157,6 +210,10 @@ body {
   .nav-links ul li {
     margin-left: 0;
     margin-bottom: 10px;
+  }
+
+  .container span {
+    font-size: 3rem;
   }
 }
 
