@@ -85,3 +85,52 @@ body {
   justify-content: center;
   width: 35%;
 }
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .logo {
+    order: 2;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+
+  .nav-center {
+    order: 1;
+    width: 35%;
+  }
+
+  .word-mark {
+    display: none;
+  }
+
+  .hamburger {
+    order: 0;
+    display: block;
+    cursor: pointer;
+    margin: auto; /* Add this line */
+  }
+
+  .nav-links {
+    order: 0;
+    display: none;
+    margin-right: auto; /* Add this line */
+  }
+
+  .nav-links.active {
+    display: block;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+  }
+
+  .nav-links ul li {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+}
