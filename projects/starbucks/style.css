@@ -25,7 +25,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: white;
   position: fixed;
-  border-bottom: 3px solid lightgray;
+  border-bottom: 3px solid rgb(52, 52, 52);
   border-bottom-style: dotted;
   top: 0;
   width: 100%;
@@ -117,12 +117,33 @@ body {
     background-color: transparent;
     border: none;
     width: 50px;
+    z-index: 2;
+  }
+
+  .side-nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border-right: 2px dotted rgb(52, 52, 52);
+  }
+
+  .side-nav.active {
+    width: 30%;
   }
 
   .nav-links {
     order: 0;
-    display: none;
-    margin-right: auto; /* Add this line */
+    display: block;
+    margin-right: auto;
+    margin-top: 50px;
+    text-align: center;
   }
 
   .nav-links.active {
