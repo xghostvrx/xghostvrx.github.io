@@ -131,6 +131,7 @@ body {
   transition-duration: 0.3s;
   cursor: pointer;
   font-weight: 800;
+  text-transform: uppercase;
 }
 
 .learn-more:hover {
