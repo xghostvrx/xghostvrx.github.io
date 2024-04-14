@@ -81,6 +81,15 @@ body {
   color: #017143;
 }
 
+a {
+  color: #017143;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(102, 102, 102);
+}
+
 .emphasis {
   font-weight: 900;
 }
