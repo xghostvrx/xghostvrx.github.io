@@ -10,4 +10,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
-  });
+});
