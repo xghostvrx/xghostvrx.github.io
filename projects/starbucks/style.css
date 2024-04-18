@@ -202,7 +202,7 @@ a:hover {
 
 .contact {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   text-align: center;
 }
 
@@ -247,21 +247,53 @@ a:hover {
 }
 
 .collapsible {
-  background-color: black;
-  color: white;
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 3.5rem;
-  text-transform: uppercase;
+  display: none;
 }
 
 .corporate {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background-color: rgba(0, 0, 0, 0.125);
+  text-align: left;
+}
+
+.corporate h2 {
+  background-color: black;
+  color: white;
+}
+
+.divider {
+  border-top: 4px solid rgb(52, 52, 52);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.brand-image {
+  position: relative;
+}
+
+.brand-image img {
+  width: 100%;
+  height: auto;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(0, 117, 74);
+  text-transform: uppercase;
+  font-weight: 800;
+  background-color: white;
+  border: 5px solid black;
+  padding: 10px 20px;
+  align-items: center;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-overlay span {
+  font-size: calc(2rem + 2vw);
 }
 
 /* Responsive Styles */
@@ -361,6 +393,44 @@ a:hover {
   .contact-buttons button {
     width: fit-content;
     margin: 5px auto;
+  }
+
+  .collapsible {
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    position: relative;
+    align-items: center;
+    display: block;
+  }
+
+  .collapsible::after {
+    content: ' +'; /* Default symbol when collapsible content is hidden */
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+  }
+
+  .collapsible.active::after {
+    content: ' -'; /* Symbol when collapsible content is visible */
+  }
+
+  .corporate {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: rgba(0, 0, 0, 0.125);
+    text-align: center;
+  }
+
+  .corporate h2, .divider {
+    display: none;
   }
 }
 
