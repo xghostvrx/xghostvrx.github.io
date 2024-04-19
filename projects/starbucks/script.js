@@ -36,3 +36,48 @@ window.addEventListener('resize', function() {
     content.style.maxHeight = null;
   }
 });
+
+
+// Get all the articles
+const articles = document.querySelectorAll('.article, .product');
+
+// Starbucks color palette
+const colorPalette = ['#00704A', '#A18664', '#362415', '#D4E9E2', '#1E4920'];
+
+// Function to get a random color from the color palette
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * colorPalette.length);
+  return colorPalette[randomIndex];
+}
+
+// Function to apply a random color to each article
+function applyRandomColors() {
+  articles.forEach(article => {
+    const color = getRandomColor();
+    article.style.backgroundColor = color;
+    article.style.color = getContrastingColor(color);
+  });
+}
+
+// Apply a random color to each article every 5 seconds
+setInterval(applyRandomColors, 10000);
+
+// Function to calculate the luminance of a color
+function getLuminance(color) {
+    const rgb = color.slice(1).match(/.{2}/g).map(hex => parseInt(hex, 16));
+    return 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
+  }
+
+  // Function to get a contrasting color
+  function getContrastingColor(color) {
+    return getLuminance(color) > 128 ? 'black' : 'white';
+  }
+
+  // Function to apply a random color to each article
+  function applyRandomColors() {
+    articles.forEach(article => {
+      const color = getRandomColor();
+      article.style.backgroundColor = color;
+      article.style.color = getContrastingColor(color);
+    });
+  }
