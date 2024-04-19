@@ -81,3 +81,29 @@ function getLuminance(color) {
       article.style.color = getContrastingColor(color);
     });
   }
+
+// Get the navbar
+const navbar = document.querySelector('.navbar');
+
+let isScrolling;
+
+// Function to adjust the navbar's opacity based on the scroll position
+function adjustNavbarOpacity() {
+  // Clear the timeout if it's already set
+  window.clearTimeout(isScrolling);
+
+  const scrollPosition = window.pageYOffset;
+  if (scrollPosition > 0) {
+    navbar.style.opacity = 0.5;
+  } else {
+    navbar.style.opacity = 1;
+  }
+
+  // Set a timeout to reset the navbar's opacity after 150 milliseconds
+  isScrolling = setTimeout(function() {
+    navbar.style.opacity = 1;
+  }, 150);
+}
+
+// Listen for the scroll event
+window.addEventListener('scroll', adjustNavbarOpacity);
