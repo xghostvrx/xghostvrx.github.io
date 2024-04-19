@@ -82,6 +82,8 @@ body {
   color: #017143;
 }
 
+/* utility styles */
+
 a {
   color: #017143;
 }
@@ -110,6 +112,42 @@ a:hover {
 .grey {
   color: rgb(102, 102, 102);
 }
+
+.button-primary {
+  text-align: center;
+  border: 2px solid #017143;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: #017143;
+  color: white;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.button-primary:hover {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.button-secondary {
+  text-align: center;
+  border: 2px solid #017143;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #017143;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.button-secondary:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
+/* page styles */
 
 .page {
   margin-top: 50px;
@@ -145,6 +183,8 @@ a:hover {
   font-size: 5rem;
 }
 
+/* front (page 1) */
+
 .learn-more {
   margin-top: 20px;
   text-align: center;
@@ -165,40 +205,39 @@ a:hover {
   color: white;
 }
 
+/* menu (page 2) */
 
-.button-primary {
+.menu {
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
-  border: 2px solid #017143;
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: #017143;
-  color: white;
-  transition-duration: 0.3s;
+  justify-content: space-between;
+}
+
+.product {
+  flex: 1vh;
+  margin: 20px;
+  width: 100%;
+}
+
+.product-image {
+  width: 250px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 18px solid rgb(255, 255, 255);
   cursor: pointer;
-  font-weight: 800;
 }
 
-.button-primary:hover {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
-}
+/* news (page 3) */
 
-.button-secondary {
+.news {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
   text-align: center;
-  border: 2px solid #017143;
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: white;
-  color: #017143;
-  transition-duration: 0.3s;
-  cursor: pointer;
-  font-weight: 800;
 }
 
-.button-secondary:hover {
-  background-color: rgba(211, 211, 211, 0.5);
-}
+/* stores (page 4) */
 
 .contact {
   display: grid;
@@ -298,6 +337,8 @@ a:hover {
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
+
+  /* Navbar Styles */
   .navbar {
     flex-direction: row;
     align-items: center;
@@ -369,6 +410,8 @@ a:hover {
     margin-bottom: 10px;
   }
 
+  /* page styles */
+
   .container span {
     font-size: 3rem;
   }
@@ -380,6 +423,13 @@ a:hover {
   .contact {
     grid-template-columns: 1fr;
   }
+
+  /* menu (page 2) */
+  .product {
+    font-size: min(2.5rem, 3.5vw);
+  }
+
+  /* stores (page 4) */
 
   .map {
     width: 300px;
@@ -434,13 +484,8 @@ a:hover {
   }
 }
 
-.menu {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  padding: 0;
-}
+/* hamburger menu (animation) */
+
 .line {
   fill: none;
   stroke: black;
