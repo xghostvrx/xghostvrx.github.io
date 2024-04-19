@@ -10,13 +10,27 @@
 /* Root Font Size */
 html {
   font-size: 62.5%; /* 1rem = 10px */
-  scroll-padding-top: 70px;
+  scroll-padding-top: 60px;
+}
+
+/* Color Palette */
+
+:root {
+  --starbucks-green: rgb(0, 98, 65);
+  --starbucks-accent: rgb(0, 117, 74);
+  --starbucks-brown: rgb(161, 134, 100);
+  --starbucks-gold: rgb(212, 184, 135);
+  --starbucks-grey: rgb(102, 102, 102);
+  --starbucks-warm: rgb(242, 240, 235);
+  --starbucks-black: rgb(52, 52, 42);
+  --starbucks-white: rgb(255, 255, 255);
 }
 
 /* Base Styles */
 body {
   font-size: 1.6rem; /* 16px */
-  background-color: rgb(242, 240, 235);
+  background-color: var(--starbucks-white);
+  color: var(--starbucks-black);
 }
 
 /* Navbar Styles */
@@ -24,9 +38,9 @@ body {
 .navbar {
   overflow: auto;
   font-family: 'Montserrat', sans-serif;
-  background-color: white;
+  background-color: var(--starbucks-white);
   position: fixed;
-  border-bottom: 3px solid rgb(52, 52, 52);
+  border-bottom: 3px solid var(--starbucks-black);
   border-bottom-style: dotted;
   top: 0;
   width: 100%;
@@ -44,7 +58,7 @@ body {
 
 .logo svg {
   padding: 14px 20px;
-  height: 80px;
+  height: 60px;
 }
 
 .word-mark {
@@ -72,7 +86,7 @@ body {
 }
 
 .nav-links ul li a {
-  color: black;
+  color: var(--starbucks-black);
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
@@ -80,17 +94,17 @@ body {
 }
 
 .nav-links ul li a:hover {
-  color: #017143;
+  color: var(--starbucks-green);
 }
 
 /* utility styles */
 
 a {
-  color: #017143;
+  color: var(--starbucks-accent);
 }
 
 a:hover {
-  color: rgb(102, 102, 102);
+  color: var(--starbucks-grey);
   text-decoration: none;
 }
 
@@ -107,56 +121,58 @@ a:hover {
 }
 
 .green {
-  color: #017143;
+  color: var(--starbucks-green);
 }
 
 .grey {
-  color: rgb(102, 102, 102);
+  color: var(--starbucks-grey);
 }
 
 .button-primary {
   text-align: center;
-  border: 2px solid #017143;
+  border: 2px solid var(--starbucks-green);
   border-radius: 20px;
   padding: 10px 20px;
-  background-color: #017143;
-  color: white;
+  background-color: var(--starbucks-green);
+  color: var(--starbucks-white);
   transition-duration: 0.3s;
   cursor: pointer;
   font-weight: 800;
 }
 
 .button-primary:hover {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
+  background-color: var(--starbucks-white);
+  border: 2px solid var(--starbucks-black);
+  color: var(--starbucks-black);
 }
 
 .button-secondary {
   text-align: center;
-  border: 2px solid #017143;
+  border: 2px solid var(--starbucks-green);
   border-radius: 20px;
   padding: 10px 20px;
-  background-color: white;
-  color: #017143;
+  background-color: var(--starbucks-white);
+  color: var(--starbucks-green);
   transition-duration: 0.3s;
   cursor: pointer;
   font-weight: 800;
 }
 
 .button-secondary:hover {
-  background-color: rgba(211, 211, 211, 0.5);
+  background-color: rgba(236, 235, 235, 0.5);
 }
 
 /* page styles */
 
 .page {
-  margin-top: 50px;
-  padding: 20px;
+  padding: 70px 20px 70px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
-  background-color: white;
+  background-color: var(--starbucks-white);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -175,8 +191,8 @@ a:hover {
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
-  background-color: rgb(0, 98, 65);
-  color: white;
+  background-color: var(--starbucks-green);
+  color: var(--starbucks-white);
   text-transform: uppercase;
 }
 
@@ -184,16 +200,37 @@ a:hover {
   font-size: 5rem;
 }
 
+#page-1 {
+  background-color: var(--starbucks-green);
+  height: 100vh;
+}
+
+#page-1 .container {
+  background-color: transparent;
+}
+
+#page-2 {
+  background-color: var(--starbucks-brown);
+}
+
+#page-3 {
+  background-color: var(--starbucks-black);
+}
+
+#page-4 {
+  background-color: var(--starbucks-gold);
+}
+
 /* front (page 1) */
 
 .learn-more {
   margin-top: 20px;
   text-align: center;
-  border: 3px solid white;
+  border: 3px solid var(--starbucks-white);
   border-radius: 20px;
   padding: 10px 20px;
-  background-color: rgb(0, 117, 74);
-  color: white;
+  background-color: var(--starbucks-accent);
+  color: var(--starbucks-white);
   transition-duration: 0.3s;
   cursor: pointer;
   font-weight: 800;
@@ -201,9 +238,9 @@ a:hover {
 }
 
 .learn-more:hover {
-  border: 3px solid black;
-  background-color: white;
-  color: black;
+  border: 3px solid var(--starbucks-black);
+  background-color: var(--starbucks-white);
+  color: var(--starbucks-black);
   transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   transform: scale(0.95);
 }
@@ -222,7 +259,7 @@ a:hover {
   margin: 20px;
   max-width: 700px;
   padding: 20px;
-  background-color: white;
+  background-color: var(--starbucks-white);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -232,7 +269,7 @@ a:hover {
   width: 250px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 18px solid rgb(0, 98, 65);
+  border: 18px solid var(--starbucks-green);
 }
 
 /* news (page 3) */
@@ -248,7 +285,7 @@ a:hover {
 .article {
   flex: 1 1 300px;
   max-width: 700px;
-  background-color: white;
+  background-color: var(--starbucks-white);
   margin: 20px;
   padding: 20px;
   border-radius: 5px;
@@ -276,13 +313,13 @@ a:hover {
 .store, .corporate {
   margin: 20px;
   padding: 20px;
-  background-color: white;
+  background-color: var(--starbucks-white);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .info {
- margin-bottom: 10px;
+ margin: 20px 5px;
 }
 
 .info span {
@@ -298,7 +335,7 @@ a:hover {
 }
 
 .location {
-  margin: 10px 0;
+  margin: 20px 5px;
 }
 
 .contact-buttons {
@@ -308,7 +345,11 @@ a:hover {
 }
 
 .contact-buttons button {
-  margin: 10px 5px;
+  margin: 20px 5px;
+}
+
+.store-hours {
+  margin: 20px 5px;
 }
 
 .corporate h3,
@@ -331,12 +372,12 @@ a:hover {
 }
 
 .corporate h2 {
-  background-color: black;
-  color: white;
+  background-color: var(--starbucks-black);
+  color: var(--starbucks-white);
 }
 
 .divider {
-  border-top: 4px solid rgb(52, 52, 52);
+  border-top: 4px solid var(--starbucks-black);
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -357,11 +398,11 @@ a:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(0, 117, 74);
+  color: var(--starbucks-green);
   text-transform: uppercase;
   font-weight: 800;
-  background-color: white;
-  border: 5px solid black;
+  background-color: var(--starbucks-white);
+  border: 5px solid var(--starbucks-black);
   padding: 10px 20px;
   align-items: center;
   font-size: 2rem;
@@ -410,6 +451,11 @@ a:hover {
     z-index: 2;
   }
 
+  .hamburger svg {
+    width: 100px;
+    height: 100px;
+  }
+
   .side-nav {
     height: 100%;
     width: 0;
@@ -417,15 +463,15 @@ a:hover {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: white;
+    background-color: var(--starbucks-white);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
-    border-right: 3px dotted rgb(52, 52, 52);
+    padding-top: 80px;
+    border-right: 3px dotted var(--starbucks-black);
   }
 
   .side-nav.active {
-    width: 30%;
+    width: 50%;
   }
 
   .nav-links {
@@ -433,7 +479,8 @@ a:hover {
     display: block;
     margin-right: auto;
     margin-top: 50px;
-    text-align: center;
+    text-align: left;
+    padding: 30px;
   }
 
   .nav-links.active {
@@ -446,7 +493,7 @@ a:hover {
 
   .nav-links ul li {
     margin-left: 0;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   /* page styles */
@@ -464,8 +511,12 @@ a:hover {
   }
 
   /* menu (page 2) */
-  .product, .article {
+  .product, .article, .contact {
     font-size: min(2.5rem, 3.5vw);
+  }
+
+  h2, .container h2 {
+    font-size: min(3.5rem, 5vw);
   }
 
   /* stores (page 4) */
@@ -485,8 +536,8 @@ a:hover {
   }
 
   .collapsible {
-    background-color: black;
-    color: white;
+    background-color: var(--starbucks-white);
+    color: black;
     cursor: pointer;
     width: 100%;
     border: none;
@@ -513,7 +564,7 @@ a:hover {
     max-height: 60px;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: rgb(212, 233, 226);
+    background-color: var(--starbucks-white);
     text-align: center;
     transition: max-height 1s ease-out;
   }
@@ -527,7 +578,7 @@ a:hover {
 
 .line {
   fill: none;
-  stroke: black;
+  stroke: var(--starbucks-black);
   stroke-width: 6;
   transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
     stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
