@@ -40,8 +40,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--starbucks-white);
   position: fixed;
-  border-bottom: 3px solid var(--starbucks-black);
-  border-bottom-style: dotted;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -531,7 +529,6 @@ a:hover {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 80px;
-    border-right: 3px dotted var(--starbucks-black);
   }
 
   .side-nav.active {
