@@ -12,6 +12,47 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
 });
 
+const colors = [
+    `hsla(160, 100%, 85%, 0.75)`, // light green
+    `hsla(0, 0%, 85%, 0.75)`, // light grey
+    `hsla(30, 100%, 85%, 0.75)`, // light brown
+    `hsla(0, 0%, 100%, 0.75)` // white
+];
+
+function createCircle() {
+    const circle = document.createElement('div');
+    const size = Math.random() * 400;
+    const colorIndex = Math.floor(Math.random() * colors.length);
+    const color = colors[colorIndex];
+    let content = document.querySelector('.content');
+    let posX = 0;
+    let posY = Math.random() * (content.offsetHeight - size);
+
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+    circle.style.background = color;
+    circle.style.left = `${posX}px`;
+    circle.style.top = `${posY}px`;
+    circle.style.opacity = 0; // Start with fully transparent circles
+
+    circle.classList.add('circle');
+
+    // Randomly assign a direction for the circle to move in
+    const animationName = Math.random() > 0.5 ? 'moveX' : 'moveY';
+    circle.style.animation = `fadeIn 2s forwards, moveX ${Math.random() * 5 + 5}s infinite linear`;
+
+    content.appendChild(circle);
+
+    setTimeout(() => {
+        circle.style.animation += `, fadeOut 2s forwards`;
+        setTimeout(() => {
+            circle.remove();
+        }, 3000); // Remove the circle after the fadeOut animation has completed
+    }, 3000); // Start the fadeOut animation 5 seconds after the circle is created
+}
+
+setInterval(createCircle, 1000);
+
 const coll = document.getElementsByClassName("collapsible");
 let i;
 

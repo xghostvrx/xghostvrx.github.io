@@ -227,6 +227,40 @@ a:hover {
   max-width: fit-content; /* Start with no text visible */
   animation: typing 3s steps(40, end) 1s forwards, blink 1s infinite 2s;
 }
+
+@keyframes moveX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes moveY {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+      opacity: 0;
+  }
+}
+
+#page-1 .content {
+  position: relative; /* Make sure the circles stay within the .content element */
+  overflow: hidden; /* Hide circles that go outside the .content element */
+  z-index: 1;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 #page-2 {
