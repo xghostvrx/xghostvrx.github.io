@@ -12,13 +12,13 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
 });
 
-var coll = document.getElementsByClassName("collapsible");
-var i;
+const coll = document.getElementsByClassName("collapsible");
+let i;
 
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
-    var content = this.nextElementSibling;
+    const content = document.querySelector('.corporate');
     if (content.style.maxHeight){
       content.style.maxHeight = null;
     } else {
@@ -26,3 +26,13 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) {
+    const content = document.querySelector('.corporate');
+    for (i = 0; i < coll.length; i++) {
+      coll[i].classList.remove('active');
+    }
+    content.style.maxHeight = null;
+  }
+});

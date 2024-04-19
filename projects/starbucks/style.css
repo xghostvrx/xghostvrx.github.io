@@ -245,6 +245,14 @@ a:hover {
   text-align: center;
 }
 
+.store, .corporate {
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .info {
  margin-bottom: 10px;
 }
@@ -291,6 +299,7 @@ a:hover {
 
 .corporate {
   text-align: left;
+  max-height: fit-content;
 }
 
 .corporate h2 {
@@ -306,11 +315,13 @@ a:hover {
 
 .brand-image {
   position: relative;
+  overflow: hidden;
 }
 
 .brand-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .text-overlay {
@@ -446,7 +457,6 @@ a:hover {
   }
 
   .collapsible {
-    margin-top: 10px;
     background-color: black;
     color: white;
     cursor: pointer;
@@ -472,11 +482,12 @@ a:hover {
   }
 
   .corporate {
-    max-height: 0;
+    max-height: 60px;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: rgba(0, 0, 0, 0.125);
+    background-color: rgb(212, 233, 226);
     text-align: center;
+    transition: max-height 1s ease-out;
   }
 
   .corporate h2, .divider {
