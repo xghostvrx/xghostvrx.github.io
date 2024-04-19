@@ -34,6 +34,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .logo {
@@ -223,11 +224,6 @@ a:hover {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-.product:hover {
-  transform: scale(1.05);
 }
 
 .product-image {
@@ -256,12 +252,15 @@ a:hover {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: background-color 3s ease-in-out;
+}
+
+.article:hover, .product:hover{
+  transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
 }
 
-.article:hover {
-  transform: scale(1.05);
+.product, .article {
+  transition: background-color 2s ease-in-out, color 2s ease-in-out;
 }
 
 /* stores (page 4) */
