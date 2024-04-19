@@ -209,6 +209,20 @@ a:hover {
   background-color: transparent;
 }
 
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+#tagline {
+  overflow: hidden; /* Hide the text until it's "typed" */
+  white-space: nowrap; /* Keep the text on a single line */
+  border-right: 3px solid; /* The "cursor" at the end of the text */
+  width: 0;
+  max-width: fit-content; /* Start with no text visible */
+  animation: typing 3s steps(40, end) 1s forwards; /* The typing animation with a 1s delay */
+}
+
 #page-2 {
   background-color: var(--starbucks-brown);
 }
