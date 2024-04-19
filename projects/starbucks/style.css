@@ -214,13 +214,19 @@ a:hover {
   to { width: 100%; }
 }
 
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: inherit; }
+}
+
 #tagline {
   overflow: hidden; /* Hide the text until it's "typed" */
   white-space: nowrap; /* Keep the text on a single line */
   border-right: 3px solid; /* The "cursor" at the end of the text */
   width: 0;
   max-width: fit-content; /* Start with no text visible */
-  animation: typing 3s steps(40, end) 1s forwards; /* The typing animation with a 1s delay */
+  animation: typing 3s steps(40, end) 1s forwards, blink 1s infinite 2s;
+}
 }
 
 #page-2 {
