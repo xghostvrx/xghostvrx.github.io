@@ -211,30 +211,46 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .product {
-  flex: 1vh;
+  flex: 1 1 305px;
   margin: 20px;
-  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .product-image {
   width: 250px;
   margin-bottom: 20px;
-  border-radius: 12px;
-  border: 18px solid rgb(255, 255, 255);
-  cursor: pointer;
+  border-radius: 5px;
+  border: 18px solid rgb(0, 98, 65);
 }
 
 /* news (page 3) */
 
 .news {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   text-align: center;
+  margin: 20px;
+}
+
+.article {
+  flex: 1 1 300px;
+  max-width: 700px;
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 /* stores (page 4) */
@@ -436,7 +452,7 @@ a:hover {
   }
 
   /* menu (page 2) */
-  .product {
+  .product, .article {
     font-size: min(2.5rem, 3.5vw);
   }
 
