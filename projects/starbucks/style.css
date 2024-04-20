@@ -223,9 +223,19 @@ a:hover {
   50% { transform: translateY(-10px); }
 }
 
+@keyframes slideInFromLeft {
+  0% {
+      transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
 #page-1 .content {
-  animation: float 3s infinite ease-in-out;
+  animation: float 3s infinite ease-in-out, slideInFromLeft 2s forwards;
   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.5);
+  margin-left: 25%;
   z-index: 0;
 }
 
@@ -250,6 +260,10 @@ a:hover {
   width: 0;
   max-width: fit-content; /* Start with no text visible */
   animation: typing 3s steps(40, end) 1s forwards, blink 1s infinite 2s;
+}
+
+#page-1 p span {
+  font-size: 1.6rem;
 }
 
 @keyframes moveX {
