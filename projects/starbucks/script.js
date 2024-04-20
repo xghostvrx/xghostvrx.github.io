@@ -12,6 +12,21 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
 });
 
+window.addEventListener('scroll', function() {
+    const parallax = document.querySelector('.background-video');
+    let scrollPosition = window.pageYOffset;
+
+    parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+});
+
+const video = document.querySelector('.background-video');
+
+video.addEventListener('loadedmetadata', function() {
+    // Set the currentTime to a random value within the duration of the video
+    video.currentTime = Math.random() * video.duration;
+    video.play();
+});
+
 const colors = [
     `hsla(160, 100%, 85%, 0.75)`, // light green
     `hsla(0, 0%, 85%, 0.75)`, // light grey
