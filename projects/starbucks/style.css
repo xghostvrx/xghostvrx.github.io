@@ -1,716 +1,705 @@
-/* Global Reset */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Root Font Size */
-html {
-  font-size: 62.5%; /* 1rem = 10px */
-  scroll-padding-top: 60px;
-}
-
-/* Color Palette */
-
-:root {
-  --starbucks-green: rgb(0, 98, 65);
-  --starbucks-accent: rgb(0, 117, 74);
-  --starbucks-brown: rgb(161, 134, 100);
-  --starbucks-gold: rgb(212, 184, 135);
-  --starbucks-grey: rgb(102, 102, 102);
-  --starbucks-warm: rgb(242, 240, 235);
-  --starbucks-black: rgb(52, 52, 42);
-  --starbucks-white: rgb(255, 255, 255);
-}
-
-/* Base Styles */
-body {
-  font-size: 1.6rem; /* 16px */
-  background-color: var(--starbucks-white);
-  color: var(--starbucks-black);
-}
-
-/* Navbar Styles */
-
-.navbar {
-  overflow: auto;
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--starbucks-white);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo svg {
-  padding: 14px 20px;
-  height: 60px;
-}
-
-.word-mark {
-  font-size: 1.8rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-left: 10px;
-}
-
-.hamburger {
-  display: none;
-}
-
-.nav-links ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-  justify-content: flex-end;
-}
-
-.nav-links ul li {
-  margin-left: 20px;
-}
-
-.nav-links ul li a {
-  color: var(--starbucks-black);
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.nav-links ul li a:hover {
-  color: var(--starbucks-green);
-}
-
-/* utility styles */
-
-a {
-  color: var(--starbucks-accent);
-}
-
-a:hover {
-  color: var(--starbucks-grey);
-  text-decoration: none;
-}
-
-.emphasis {
-  font-weight: 900;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.green {
-  color: var(--starbucks-green);
-}
-
-.grey {
-  color: var(--starbucks-grey);
-}
-
-.button-primary {
-  text-align: center;
-  border: 2px solid var(--starbucks-green);
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: var(--starbucks-green);
-  color: var(--starbucks-white);
-  transition-duration: 0.3s;
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.button-primary:hover {
-  background-color: var(--starbucks-white);
-  border: 2px solid var(--starbucks-black);
-  color: var(--starbucks-black);
-}
-
-.button-secondary {
-  text-align: center;
-  border: 2px solid var(--starbucks-green);
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: var(--starbucks-white);
-  color: var(--starbucks-green);
-  transition-duration: 0.3s;
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.button-secondary:hover {
-  background-color: rgba(236, 235, 235, 0.5);
-}
-
-/* page styles */
-
-.page {
-  padding: 70px 20px 70px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content {
-  background-color: var(--starbucks-white);
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Noto Sans', sans-serif;
-}
-
-.container {
-  background-color: rgba(236, 235, 235, 0.5);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.container h2 {
-  font-size: 3.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  background-color: var(--starbucks-green);
-  color: var(--starbucks-white);
-  text-transform: uppercase;
-}
-
-.container span {
-  font-size: 5rem;
-}
-
-#page-1 {
-  background-color: var(--starbucks-green);
-  height: 100vh;
-  position: relative;
-  z-index: 0;
-}
-
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover; /* Make the video cover the entire #page-1 element */
-  opacity: 0.75;
-  z-index: -1; /* Place the video behind the content */
-  transition: opacity 1s ease-in-out;
-  will-change: transform;
-}
-
+/* CSSTidy 2.0.3: Mon, 22 Apr 2024 12:37:09 -0500 */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,to {
+      transform: translateY(0)
+  }
+
+  50% {
+      transform: translateY(-10px)
+  }
 }
 
 @keyframes slideInFromLeft {
   0% {
-      transform: translateX(-100%);
+      transform: translateX(-100%)
   }
-  100% {
-      transform: translateX(0);
+
+  to {
+      transform: translateX(0)
   }
-}
-
-#page-1 .content {
-  animation: float 3s infinite ease-in-out, slideInFromLeft 2s forwards;
-  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.5);
-  margin-left: 25%;
-  z-index: 0;
-}
-
-#page-1 .container {
-  background-color: transparent;
 }
 
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  0% {
+      width: 0
+  }
+
+  to {
+      width: 100%
+  }
 }
 
 @keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: inherit; }
-}
+  0%,to {
+      border-color: transparent
+  }
 
-#tagline {
-  overflow: hidden; /* Hide the text until it's "typed" */
-  white-space: nowrap; /* Keep the text on a single line */
-  border-right: 3px solid; /* The "cursor" at the end of the text */
-  width: 0;
-  max-width: fit-content; /* Start with no text visible */
-  animation: typing 3s steps(40, end) 1s forwards, blink 1s infinite 2s;
-}
-
-#page-1 p span {
-  font-size: 1.6rem;
+  50% {
+      border-color: inherit
+  }
 }
 
 @keyframes moveX {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(100%); }
+  0% {
+      transform: translateX(0)
+  }
+
+  to {
+      transform: translateX(100%)
+  }
 }
 
 @keyframes moveY {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
+  0% {
+      transform: translateY(0)
+  }
+
+  to {
+      transform: translateY(100%)
+  }
 }
 
 @keyframes fadeIn {
   to {
-      opacity: 1;
+      opacity: 1
   }
 }
 
 @keyframes fadeOut {
   to {
-      opacity: 0;
+      opacity: 0
   }
 }
 
+*,::after,::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html {
+  font-size: 62.5%;
+  scroll-padding-top: 60px
+}
+
+:root {
+  --starbucks-accent: #00754a;
+  --starbucks-black: #34342a;
+  --starbucks-brown: #a18664;
+  --starbucks-gold: #d4b887;
+  --starbucks-green: #006241;
+  --starbucks-grey: #666;
+  --starbucks-warm: #f2f0eb;
+  --starbucks-white: #fff
+}
+
+.nav-links ul li a,body {
+  color: var(--starbucks-black)
+}
+
+.navbar,body {
+  background-color: var(--starbucks-white)
+}
+
+.navbar {
+  font-family: "Montserrat",sans-serif;
+  justify-content: space-between;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  transition: opacity .5s ease-in-out;
+  width: 100%;
+  z-index: 1000
+}
+
+.logo,.navbar {
+  align-items: center;
+  display: flex
+}
+
+.logo svg {
+  height: 60px;
+  padding: 14px 20px
+}
+
+.word-mark {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-left: 10px;
+  text-transform: uppercase
+}
+
+.hamburger {
+  display: none
+}
+
+.nav-links ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase
+}
+
+.nav-links ul li {
+  margin-left: 20px
+}
+
+.nav-links ul li a {
+  font-weight: 700;
+  padding: 14px 20px;
+  text-align: center;
+  text-decoration: none
+}
+
+.nav-links ul li a:hover {
+  color: var(--starbucks-green)
+}
+
+a {
+  color: var(--starbucks-accent)
+}
+
+a:hover {
+  color: var(--starbucks-grey);
+  text-decoration: none
+}
+
+.emphasis {
+  font-weight: 900
+}
+
+.bold {
+  font-weight: 700
+}
+
+.uppercase {
+  text-transform: uppercase
+}
+
+.green {
+  color: var(--starbucks-green)
+}
+
+.grey {
+  color: var(--starbucks-grey)
+}
+
+.button-primary {
+  background-color: var(--starbucks-green);
+  border: 2px solid var(--starbucks-green);
+  border-radius: 20px;
+  color: var(--starbucks-white);
+  cursor: pointer;
+  font-weight: 800;
+  padding: 10px 20px;
+  text-align: center;
+  transition-duration: .3s
+}
+
+.button-primary:hover,.button-secondary {
+  background-color: var(--starbucks-white);
+  border: 2px solid var(--starbucks-black);
+  color: var(--starbucks-black)
+}
+
+.button-secondary {
+  border: 2px solid var(--starbucks-green);
+  border-radius: 20px;
+  color: var(--starbucks-green);
+  cursor: pointer;
+  font-weight: 800;
+  padding: 10px 20px;
+  text-align: center;
+  transition-duration: .3s
+}
+
+.button-secondary:hover {
+  background-color: #ecebeb80
+}
+
+.page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 70px 20px
+}
+
+.content {
+  background-color: var(--starbucks-white);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px #0000001a;
+  font-family: "Noto Sans",sans-serif;
+  padding: 20px
+}
+
+.container {
+  background-color: #ecebeb80;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden
+}
+
+#page-1,.container h2 {
+  background-color: var(--starbucks-green)
+}
+
+.container h2 {
+  color: var(--starbucks-white);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase
+}
+
+.container span {
+  font-size: 5rem
+}
+
+#page-1 {
+  height: 100vh;
+  position: relative;
+  z-index: 0
+}
+
+.background-video,.circle {
+  position: absolute;
+  z-index: -1
+}
+
+.background-video {
+  height: 100vh;
+  left: 0;
+  object-fit: cover;
+  opacity: .75;
+  top: 0;
+  transition: opacity 1s ease-in-out;
+  width: 100%;
+  will-change: transform
+}
+
 #page-1 .content {
-  position: relative; /* Make sure the circles stay within the .content element */
-  overflow: hidden; /* Hide circles that go outside the .content element */
-  z-index: 2;
+  animation: float 3s infinite ease-in-out,slideInFromLeft 2s forwards;
+  box-shadow: 0 10px 30px -5px #00000080;
+  margin-left: 25%
+}
+
+#page-1 .container {
+  background-color: transparent
+}
+
+#tagline {
+  animation: typing 3s steps(40,end) 1s forwards,blink 1s infinite 2s;
+  border-right: 3px solid;
+  max-width: fit-content;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0
+}
+
+#page-1 p span,body {
+  font-size: 1.6rem
+}
+
+#page-1 .content {
+  overflow: hidden;
+  position: relative;
+  z-index: 2
 }
 
 .circle {
-  position: absolute;
   border-radius: 50%;
-  opacity: 0.5;
-  z-index: -1;
+  opacity: .5
 }
 
-#page-2 {
+#page-2,.learn-more {
   background-color: var(--starbucks-brown);
-  position: relative;
+  position: relative
 }
 
 #page-3 {
-  background-color: var(--starbucks-black);
+  background-color: var(--starbucks-black)
 }
 
 #page-4 {
-  background-color: var(--starbucks-gold);
+  background-color: var(--starbucks-gold)
 }
 
-/* front (page 1) */
-
 .learn-more {
-  margin-top: 20px;
-  text-align: center;
+  background-color: var(--starbucks-accent);
   border: 3px solid var(--starbucks-white);
   border-radius: 20px;
-  padding: 10px 20px;
-  background-color: var(--starbucks-accent);
   color: var(--starbucks-white);
-  transition-duration: 0.3s;
   cursor: pointer;
   font-weight: 800;
+  margin-top: 20px;
+  padding: 10px 20px;
+  text-align: center;
   text-transform: uppercase;
-  position: relative;
-  z-index: 2;
+  transition-duration: .3s;
+  z-index: 2
 }
 
 .learn-more:hover {
   border: 3px solid var(--starbucks-black);
-  background-color: var(--starbucks-white);
   color: var(--starbucks-black);
-  transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  transform: scale(0.95);
   position: relative;
-  z-index: 2;
+  transform: scale(.95);
+  transition: border .3s ease-in-out,background-color .3s ease-in-out,color .3s ease-in-out;
+  z-index: 2
 }
-
-/* menu (page 2) */
 
 .menu {
   display: flex;
   flex-wrap: wrap;
-  text-align: center;
   justify-content: center;
+  text-align: center
+}
+
+.learn-more:hover,.product {
+  background-color: var(--starbucks-white)
 }
 
 .product {
+  border-radius: 5px;
+  box-shadow: 0 2px 4px #0000001a;
+  cursor: pointer;
   flex: 1 1 305px;
   margin: 20px;
   max-width: 700px;
-  padding: 20px;
-  background-color: var(--starbucks-white);
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  padding: 20px
 }
 
 .product-image {
-  width: 250px;
-  margin-bottom: 20px;
-  border-radius: 5px;
   border: 18px solid var(--starbucks-green);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 250px
 }
-
-/* news (page 3) */
 
 .news {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  text-align: center;
   margin: 20px;
+  text-align: center
 }
 
 .article {
-  flex: 1 1 300px;
-  max-width: 700px;
   background-color: var(--starbucks-white);
-  margin: 20px;
-  padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px #0000001a;
   cursor: pointer;
+  flex: 1 1 300px;
+  margin: 20px;
+  max-width: 700px;
+  padding: 20px
 }
 
-.article:hover, .product:hover{
+.article:hover,.product:hover {
   transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
+  transition: transform .3s ease-in-out
 }
 
-.product, .article {
-  transition: background-color 2s ease-in-out, color 2s ease-in-out;
+.article,.product {
+  transition: background-color 2s ease-in-out,color 2s ease-in-out
 }
-
-/* stores (page 4) */
 
 .contact {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  text-align: center;
+  text-align: center
 }
 
-.store, .corporate {
-  margin: 20px;
-  padding: 20px;
+.corporate,.store {
   background-color: var(--starbucks-white);
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px #0000001a;
+  margin: 20px;
+  padding: 20px
 }
 
-.info {
- margin: 20px 5px;
+.contact-buttons button,.info,.location {
+  margin: 20px 5px
 }
 
 .info span {
-  display: block;
+  display: block
 }
 
 .info span:first-of-type {
-  font-size: 2.5rem;
+  font-size: 2.5rem
 }
 
 .info span:not(:first-of-type) {
-  font-size: 2rem;
-}
-
-.location {
-  margin: 20px 5px;
+  font-size: 2rem
 }
 
 .contact-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-}
-
-.contact-buttons button {
-  margin: 20px 5px;
+  justify-content: center
 }
 
 .store-hours {
-  margin: 20px 5px;
+  margin: 20px 5px
 }
 
-.corporate h3,
-.corporate p {
-  margin: 10px;
+.corporate h3,.corporate p {
+  margin: 10px
 }
 
 .map {
-  width: 400px;
   height: 300px;
+  width: 400px
 }
 
 .collapsible {
-  display: none;
+  display: none
 }
 
 .corporate {
-  text-align: left;
   max-height: fit-content;
+  text-align: left
 }
 
 .corporate h2 {
   background-color: var(--starbucks-black);
-  color: var(--starbucks-white);
+  color: var(--starbucks-white)
 }
 
 .divider {
   border-top: 4px solid var(--starbucks-black);
-  margin-top: 20px;
   margin-bottom: 10px;
+  margin-top: 20px
 }
 
 .brand-image {
-  position: relative;
   overflow: hidden;
+  position: relative
 }
 
 .brand-image img {
-  width: 100%;
   height: 100%;
   object-fit: contain;
+  width: 100%
+}
+
+.text-overlay,footer {
+  background-color: var(--starbucks-white)
 }
 
 .text-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--starbucks-green);
-  text-transform: uppercase;
-  font-weight: 800;
-  background-color: var(--starbucks-white);
+  align-items: center;
   border: 5px solid var(--starbucks-black);
-  padding: 10px 20px;
-  align-items: center;
-  font-size: 2rem;
+  color: var(--starbucks-green);
   display: flex;
+  font-size: 2rem;
+  font-weight: 800;
   justify-content: center;
-  align-items: center;
+  left: 50%;
+  padding: 10px 20px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 50%;
+  transform: translate(-50%,-50%)
 }
 
 .text-overlay span {
-  font-size: calc(2rem + 2vw);
+  font-size: calc(2rem + 2vw)
 }
 
-/* footer */
 footer {
-  background-color: var(--starbucks-white);
-  font-family: 'Noto Sans', sans-serif;
-  text-align: center;
+  font-family: "Noto Sans",sans-serif;
   padding: 20px;
+  text-align: center
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-
-  /* Navbar Styles */
+@media screen and (max-width:768px) {
   .navbar {
-    flex-direction: row;
-    align-items: center;
+      align-items: center;
+      flex-direction: row
   }
 
   .logo {
-    order: 2;
-    margin: auto;
-    margin-bottom: 10px;
+      margin: auto auto 10px;
+      order: 2
   }
 
   .nav-center {
-    order: 1;
-    width: 35%;
+      order: 1;
+      width: 35%
   }
 
   .word-mark {
-    display: none;
+      display: none
   }
 
   .hamburger {
-    order: 0;
-    display: flex;
-    cursor: pointer;
-    margin: auto; /* Add this line */
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    width: 50px;
-    z-index: 2;
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      margin: auto;
+      order: 0;
+      padding: 0;
+      width: 50px;
+      z-index: 2
   }
 
   .hamburger svg {
-    width: 100px;
-    height: 100px;
+      height: 100px;
+      width: 100px
   }
 
   .side-nav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: var(--starbucks-white);
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 80px;
+      background-color: var(--starbucks-white);
+      height: 100%;
+      left: 0;
+      overflow-x: hidden;
+      padding-top: 80px;
+      position: fixed;
+      top: 0;
+      transition: .5s;
+      width: 0;
+      z-index: 1
   }
 
   .side-nav.active {
-    width: 50%;
+      width: 50%
   }
 
   .nav-links {
-    order: 0;
-    display: block;
-    margin-right: auto;
-    margin-top: 50px;
-    text-align: left;
-    padding: 30px;
+      margin-right: auto;
+      margin-top: 50px;
+      order: 0;
+      padding: 30px;
+      text-align: left
   }
 
-  .nav-links.active {
-    display: block;
+  .nav-links,.nav-links.active {
+      display: block
   }
 
   .nav-links ul {
-    flex-direction: column;
+      flex-direction: column
   }
 
   .nav-links ul li {
-    margin-left: 0;
-    margin-bottom: 30px;
+      margin-bottom: 30px;
+      margin-left: 0
   }
 
-  /* page styles */
-
   .container span {
-    font-size: 3rem;
+      font-size: 3rem
   }
 
   .container h2 {
-    font-size: 2.5rem;
+      font-size: 2.5rem
   }
 
   .contact {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr
   }
 
-  /* menu (page 2) */
-  .product, .article, .contact {
-    font-size: min(2.5rem, 3.5vw);
+  .article,.contact,.product {
+      font-size: min(2.5rem,3.5vw)
   }
 
-  h2, .container h2 {
-    font-size: min(3.5rem, 5vw);
+  .container h2,h2 {
+      font-size: min(3.5rem,5vw)
   }
-
-  /* stores (page 4) */
 
   .map {
-    width: 300px;
-    height: 200px;
+      height: 200px;
+      width: 300px
   }
 
   .contact-buttons {
-    flex-direction: column;
+      flex-direction: column
   }
 
   .contact-buttons button {
-    width: fit-content;
-    margin: 5px auto;
+      margin: 5px auto;
+      width: fit-content
+  }
+
+  .collapsible,.corporate {
+      background-color: var(--starbucks-white)
   }
 
   .collapsible {
-    background-color: var(--starbucks-white);
-    color: black;
-    cursor: pointer;
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    position: relative;
-    align-items: center;
-    display: block;
+      align-items: center;
+      border: 0;
+      color: #000;
+      cursor: pointer;
+      display: block;
+      font-size: 2.5rem;
+      outline: 0;
+      position: relative;
+      text-transform: uppercase;
+      width: 100%
   }
 
   .collapsible::after {
-    content: ' +'; /* Default symbol when collapsible content is hidden */
-    position: absolute;
-    right: 0;
-    margin-right: 10px;
+      content: " +";
+      margin-right: 10px;
+      position: absolute;
+      right: 0
   }
 
   .collapsible.active::after {
-    content: ' -'; /* Symbol when collapsible content is visible */
+      content: " -"
   }
 
   .corporate {
-    max-height: 60px;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: var(--starbucks-white);
-    text-align: center;
-    transition: max-height 1s ease-out;
+      max-height: 60px;
+      overflow: hidden;
+      text-align: center;
+      transition: max-height 1s ease-out
   }
 
-  .corporate h2, .divider {
-    display: none;
+  .corporate h2,.divider {
+      display: none
   }
 }
-
-/* hamburger menu (animation) */
 
 .line {
   fill: none;
   stroke: var(--starbucks-black);
   stroke-width: 6;
-  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
-    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dasharray 600ms cubic-bezier(.4,0,.2,1),stroke-dashoffset 600ms cubic-bezier(.4,0,.2,1)
 }
-.line1 {
+
+.line1,.line2,.line3 {
   stroke-dasharray: 60 207;
-  stroke-width: 6;
+  stroke-width: 6
 }
-.line2 {
-  stroke-dasharray: 60 60;
-  stroke-width: 6;
+
+.line2,.line3 {
+  stroke-dasharray: 60 60
 }
+
 .line3 {
-  stroke-dasharray: 60 207;
-  stroke-width: 6;
+  stroke-dasharray: 60 207
 }
+
 .opened .line1 {
   stroke-dasharray: 90 207;
   stroke-dashoffset: -134;
-  stroke-width: 6;
+  stroke-width: 6
 }
+
 .opened .line2 {
   stroke-dasharray: 1 60;
   stroke-dashoffset: -30;
-  stroke-width: 6;
+  stroke-width: 6
 }
+
 .opened .line3 {
   stroke-dasharray: 90 207;
   stroke-dashoffset: -134;
-  stroke-width: 6;
+  stroke-width: 6
 }
