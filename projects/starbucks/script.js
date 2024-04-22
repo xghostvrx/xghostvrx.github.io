@@ -1,3 +1,4 @@
+/* Smooth scrolling on all navigation links */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -8,10 +9,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+/* Navbar opacity on scroll */
+
+// Get the navbar
+const navbar = document.querySelector('.navbar');
+
+let isScrolling;
+
+// Function to adjust the navbar's opacity based on the scroll position
+function adjustNavbarOpacity() {
+  // Clear the timeout if it's already set
+  window.clearTimeout(isScrolling);
+
+  const scrollPosition = window.pageYOffset;
+  if (scrollPosition > 0) {
+    navbar.style.opacity = 0.5;
+  } else {
+    navbar.style.opacity = 1;
+  }
+
+  // Set a timeout to reset the navbar's opacity after 150 milliseconds
+  isScrolling = setTimeout(function() {
+    navbar.style.opacity = 1;
+  }, 150);
+}
+
+// Listen for the scroll event
+window.addEventListener('scroll', adjustNavbarOpacity);
+
+/* Hambuger menu (functionality) */
 document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
 });
 
+// Close the side nav when a link is clicked
 const sideNavLinks = document.querySelectorAll('.side-nav a');
 
 sideNavLinks.forEach(link => {
@@ -20,6 +51,7 @@ sideNavLinks.forEach(link => {
     });
 });
 
+/* Background video parallax effect */
 window.addEventListener('scroll', function() {
     const parallax = document.querySelector('.background-video');
     let scrollPosition = window.pageYOffset;
@@ -27,6 +59,7 @@ window.addEventListener('scroll', function() {
     parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
 });
 
+/* Background video: Get the video element */
 const video = document.querySelector('.background-video');
 
 video.addEventListener('loadedmetadata', function() {
@@ -35,6 +68,9 @@ video.addEventListener('loadedmetadata', function() {
     video.play();
 });
 
+/* Circle animation (front page) */
+
+// Define the colors that the circles can be
 const colors = [
     `hsla(160, 100%, 85%, 0.75)`, // light green
     `hsla(0, 0%, 85%, 0.75)`, // light grey
@@ -42,6 +78,7 @@ const colors = [
     `hsla(0, 0%, 100%, 0.75)` // white
 ];
 
+// Function to create a circle
 function createCircle() {
     const circle = document.createElement('div');
     const size = Math.random() * 400;
@@ -74,23 +111,32 @@ function createCircle() {
     }, 3000); // Start the fadeOut animation 5 seconds after the circle is created
 }
 
+// Create a circle every second
 setInterval(createCircle, 1000);
 
+/* Collapsible menu (corporate) */
+
+// Get all the collapsible elements
 const coll = document.getElementsByClassName("collapsible");
 let i;
 
+// Add an event listener to each collapsible element
 for (i = 0; i < coll.length; i++) {
+  // Toggle the active class when a collapsible element is clicked
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
     const content = document.querySelector('.corporate');
+    // Toggle the max-height property of the content
     if (content.style.maxHeight){
+      // Remove the max-height property
       content.style.maxHeight = null;
     } else {
+      // Set the max-height to the scroll height of the content
       content.style.maxHeight = content.scrollHeight + "px";
     }
   });
 }
-
+// Remove the collapsible menu when the window is resized to a width greater than 768px
 window.addEventListener('resize', function() {
   if (window.innerWidth > 768) {
     const content = document.querySelector('.corporate');
@@ -101,6 +147,7 @@ window.addEventListener('resize', function() {
   }
 });
 
+/* Random colors cards (products + articles) */
 
 // Get all the articles
 const articles = document.querySelectorAll('.article, .product');
@@ -145,29 +192,3 @@ function getLuminance(color) {
       article.style.color = getContrastingColor(color);
     });
   }
-
-// Get the navbar
-const navbar = document.querySelector('.navbar');
-
-let isScrolling;
-
-// Function to adjust the navbar's opacity based on the scroll position
-function adjustNavbarOpacity() {
-  // Clear the timeout if it's already set
-  window.clearTimeout(isScrolling);
-
-  const scrollPosition = window.pageYOffset;
-  if (scrollPosition > 0) {
-    navbar.style.opacity = 0.5;
-  } else {
-    navbar.style.opacity = 1;
-  }
-
-  // Set a timeout to reset the navbar's opacity after 150 milliseconds
-  isScrolling = setTimeout(function() {
-    navbar.style.opacity = 1;
-  }, 150);
-}
-
-// Listen for the scroll event
-window.addEventListener('scroll', adjustNavbarOpacity);
