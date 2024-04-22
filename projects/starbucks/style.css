@@ -512,6 +512,14 @@ a:hover {
   font-size: calc(2rem + 2vw);
 }
 
+/* footer */
+footer {
+  background-color: var(--starbucks-white);
+  font-family: 'Noto Sans', sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
 
