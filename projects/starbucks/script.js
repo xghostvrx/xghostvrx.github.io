@@ -12,6 +12,14 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     document.querySelector('.side-nav').classList.toggle('active');
 });
 
+const sideNavLinks = document.querySelectorAll('.side-nav a');
+
+sideNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.side-nav').classList.remove('active');
+    });
+});
+
 window.addEventListener('scroll', function() {
     const parallax = document.querySelector('.background-video');
     let scrollPosition = window.pageYOffset;
