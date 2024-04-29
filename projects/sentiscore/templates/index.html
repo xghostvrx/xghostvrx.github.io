@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Posts {% endblock %}</h1>
+    {% for sentiscore in sentiscore %}
+        <div class='post'>
+            <h2>{{ sentiscore[3] }}</h3>
+        </div>
+    {% endfor %}
+{% endblock %}
