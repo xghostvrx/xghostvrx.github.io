@@ -19,7 +19,7 @@ def connect_to_database():
         exit(1)
     return conn, cur
 
-def check_database_exists():
+def check_table_exists():
     conn, cur = connect_to_database()
     cur.execute("SELECT sentiscore FROM pg_database;")
     list_database = cur.fetchall()
