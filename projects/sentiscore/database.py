@@ -6,7 +6,7 @@ from sys import exit
 
 load_env()
 
-def connect_to_database():
+def connect_to_server():
     try:
         conn = connect(
             host=getenv('DB_HOSTNAME'),
@@ -14,13 +14,27 @@ def connect_to_database():
             password=getenv('DB_PASSWORD')
         )
         cur = conn.cursor()
+    except:
+        print("Error: Could not connect to the server.")
+        exit(1)
+    return conn, cur
+
+def connect_to_database():
+    try:
+        conn = connect(
+            host=getenv('DB_HOSTNAME'),
+            user=getenv('DB_USERNAME'),
+            password=getenv('DB_PASSWORD'),
+            dbname='sentiscore'
+        )
+        cur = conn.cursor()
     except OperationalError:
-        print("Error: Could not connect to the database.")
+        print("Error: Could not connect to the 'sentiscore' database.")
         exit(1)
     return conn, cur
 
 def check_database_exists():
-    conn, cur = connect_to_database()
+    conn, cur = connect_to_server()
     try:
         cur.execute("""
             SELECT EXISTS (
