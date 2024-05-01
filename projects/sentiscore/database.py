@@ -21,10 +21,20 @@ def connect_to_database():
 
 def check_database_exists():
     conn, cur = connect_to_database()
-    cur.execute("SELECT sentiscore FROM pg_database;")
-    list_database = cur.fetchall()
-    conn.close()
-    return ('sentiscore',) in list_database
+    try:
+        cur.execute("""
+            SELECT EXISTS (
+                SELECT datname FROM pg_database
+                WHERE datname = 'sentiscore'
+            );
+        """)
+        database_exists = cur.fetchone()[0]
+    except OperationalError:
+        print("Error: Could not check if database exists.")
+        exit(1)
+    finally:
+        conn.close()
+    return database_exists
 
 def create_database():
     conn, cur = connect_to_database()
