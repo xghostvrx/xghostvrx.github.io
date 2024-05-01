@@ -1,5 +1,4 @@
 # server.py
-import sys
 from flask import Flask, render_template
 from database import check_database_exists, create_database
 

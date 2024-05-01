@@ -1,17 +1,22 @@
 # database.py
-import psycopg
 from os import getenv
 from dotenv import load_env
+from psycopg import connect, OperationalError
+from sys import exit
 
 load_env()
 
 def connect_to_database():
-    conn = psycopg.connect(
-        host=getenv('DB_HOSTNAME'),
-        user=getenv('DB_USERNAME'),
-        password=getenv('DB_PASSWORD')
-    )
-    cur = conn.cursor()
+    try:
+        conn = connect(
+            host=getenv('DB_HOSTNAME'),
+            user=getenv('DB_USERNAME'),
+            password=getenv('DB_PASSWORD')
+        )
+        cur = conn.cursor()
+    except OperationalError:
+        print("Error: Could not connect to the database.")
+        exit(1)
     return conn, cur
 
 def check_database_exists():
