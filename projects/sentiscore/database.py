@@ -28,6 +28,15 @@ def check_database_exists():
 
 def create_database():
     conn, cur = connect_to_database()
+    conn.set_session(autocommit=True)
+    try:
+        cur.execute('CREATE DATABASE sentiscore;')
+    except OperationalError:
+        print("Error: Could not create 'sentiscore' database.")
+        exit(1)
+
+def create_table():
+    conn, cur = connect_to_database()
     cur.execute('CREATE TABLE sentiscore (id serial PRIMARY KEY,'
                                 'post_id VARCHAR(255) UNIQUE,'
                                 'post_text TEXT,'
