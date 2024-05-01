@@ -20,3 +20,17 @@ def check_database_exists():
     list_database = cur.fetchall()
     conn.close()
     return ('sentiscore',) in list_database
+
+def create_database():
+    conn, cur = connect_to_database()
+    cur.execute('CREATE TABLE sentiscore (id serial PRIMARY KEY,'
+                                'post_id VARCHAR(255) UNIQUE,'
+                                'post_text TEXT,'
+                                'created_at TIMESTAMP,'
+                                'user_id VARCHAR(255),'
+                                'user_name VARCHAR(15),'
+                                'user_profile_image_url VARCHAR(255),'
+                                'retweet_count INT,'
+                                'like_count INT);'
+                                )
+    conn.commit()

@@ -1,7 +1,7 @@
 # server.py
 import sys
 from flask import Flask, render_template
-from database import check_database_exists
+from database import check_database_exists, create_database
 
 app = Flask(__name__)
 
@@ -14,7 +14,8 @@ def initialize_server():
         app.run()
     else:
         print("Database 'sentiscore' does not exist.")
-        sys.exit()
+        print("Creating 'sentiscore' database.")
+        create_database()
 
 if __name__ == '__main__':
     initialize_server()
