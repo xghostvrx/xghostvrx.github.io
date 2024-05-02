@@ -100,7 +100,7 @@ def create_table(db_name):
     conn, cur = connect_to_database(db_name)
     cur.execute('CREATE TABLE posts (id serial PRIMARY KEY,'
                                 'post_id VARCHAR(255) UNIQUE,'
-                                'post_text TEXT,'
+                                'content TEXT,'
                                 'created_at TIMESTAMP,'
                                 'user_id VARCHAR(255),'
                                 'user_name VARCHAR(15),'
