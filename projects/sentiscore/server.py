@@ -2,7 +2,7 @@
 from os import getenv
 from dotenv import load_dotenv
 from flask import Flask, render_template
-from database import check_database_exists, create_database, check_table_exists, create_table
+from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table
 
 load_dotenv(override=True)
 
@@ -20,7 +20,12 @@ def initialize_server():
         create_database(db_name)
     elif not check_table_exists(db_name):
         print("'posts' table does not exists.")
-        print("Creating 'sentiscore' table.")
+        print("Creating 'posts' table.")
+        create_table(db_name)
+    elif not check_columns(db_name):
+        print("Data columns in 'posts' table do not appear to be appropriate.")
+        print("Dropping the 'posts' table and creating a new one.")
+        drop_table(db_name)
         create_table(db_name)
     else:
         print('The app started sucker.')
