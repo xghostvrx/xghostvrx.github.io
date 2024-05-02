@@ -23,18 +23,21 @@ def initialize_server():
         logging.info(f"Database '{db_name}' does not exist.")
         logging.info(f"Creating '{db_name}' database.")
         create_database(db_name)
+
     elif not check_table_exists(db_name):
         logging.info("'posts' table does not exists.")
         logging.info("Creating 'posts' table.")
         create_table(db_name)
+
     elif not check_columns(db_name):
         logging.warning("Data columns in 'posts' table do not appear to be appropriate.")
         logging.warning("Dropping the 'posts' table and creating a new one.")
         drop_table(db_name)
         create_table(db_name)
-    else:
-        logging.info('The app started sucker.')
-        # app.run()
+
+    logging.info('The application has passed initialization checks.')
+    logging.info('Running the application and its server as intented.')
+    app.run()
 
 @app.route('/api/posts', methods=['GET'])
 def mock_posts_route():
