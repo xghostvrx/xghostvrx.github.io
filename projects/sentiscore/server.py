@@ -1,10 +1,10 @@
 # server.py
 import logging
+import json
 from os import getenv
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template
 from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table
-from socials import x_mock_api_data
 
 # Configure logging
 logging.basicConfig(filename='server.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
@@ -41,7 +41,9 @@ def initialize_server():
 
 @app.route('/api/posts', methods=['GET'])
 def mock_posts_route():
-    posts = x_mock_api_data() # Call the function to return posts
+    with open('posts.json', 'r') as f:
+        # Load x_mock_api_data from file
+        posts = json.load(f)
     return jsonify(posts)
 
 if __name__ == '__main__':
