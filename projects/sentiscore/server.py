@@ -3,7 +3,7 @@ import logging
 import json
 from os import getenv
 from dotenv import load_dotenv
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request, abort
 from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table
 
 # Configure logging
@@ -39,12 +39,17 @@ def initialize_server():
     logging.info('Running the application and its server as intented.')
     app.run()
 
-@app.route('/api/posts', methods=['GET'])
-def mock_posts_route():
+@app.route('/2/tweets', methods=['GET'])
+def get_post():
+    id = request.args.get('id', default = 1, type = int)
     with open('posts.json', 'r') as f:
-        # Load x_mock_api_data from file
         posts = json.load(f)
-    return jsonify(posts)
+    # Find the post with the given ID
+    for post in posts['data']:
+        if post['id'] == id:
+            return jsonify(post)
+    # If no post with given ID, return 404 error
+    abort(404)
 
 if __name__ == '__main__':
     initialize_server()
