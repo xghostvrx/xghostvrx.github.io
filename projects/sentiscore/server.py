@@ -43,14 +43,29 @@ def initialize_server():
 def get_post():
     # Get the query parameters from request
     id = request.args.get('id', default = 1, type = int)
-    fields = request.args.get('tweet.fields', default = '', type = str).split(',')
+    tweet_fields = request.args.get('tweet.fields', default = '', type = str).split(',')
+    media_fields = request.args.get('media.fields', default = '', type = str).split(',')
+    place_fields = request.args.get('place.fields', default = '', type = str).split(',')
+    poll_fields = request.args.get('poll.fields', default = '', type = str).split(',')
+    user_fields = request.args.get('user.fields', default = '', type = str).split(',')
     with open('posts.json', 'r') as f:
         posts = json.load(f)
     # Find the post with the given ID
     for post in posts['data']:
         if post['id'] == id:
             # Create a new dictionary with only the requested fields
-            response = {field: post [field] for field in fields if field in post}
+            response = {field: post [field] for field in tweet_fields if field in post}
+            # Add additional fields to the response
+            if 'includes' in post:
+                includes = post['includes']
+                if 'media' in includes:
+                    response['media'] = {field: includes['media'][field] for field in media_fields if field in includes['media']}
+                if 'places' in includes:
+                    response['places'] = {field: includes['places'][field] for field in place_fields if field in includes['places']}
+                if 'polls' in includes:
+                    response['polls'] = {field: includes['polls'][field] for field in poll_fields if field in includes['polls']}
+                if 'users' in includes:
+                    response['users'] = {field: includes['users'][field] for field in user_fields if field in includes['users']}
             return jsonify(response)
     # If no post with given ID, return 404 error
     abort(404)
