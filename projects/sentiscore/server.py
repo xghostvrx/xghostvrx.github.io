@@ -41,13 +41,17 @@ def initialize_server():
 
 @app.route('/2/tweets', methods=['GET'])
 def get_post():
+    # Get the query parameters from request
     id = request.args.get('id', default = 1, type = int)
+    fields = request.args.get('tweet.fields', default = '', type = str).split(',')
     with open('posts.json', 'r') as f:
         posts = json.load(f)
     # Find the post with the given ID
     for post in posts['data']:
         if post['id'] == id:
-            return jsonify(post)
+            # Create a new dictionary with only the requested fields
+            response = {field: post [field] for field in fields if field in post}
+            return jsonify(response)
     # If no post with given ID, return 404 error
     abort(404)
 
