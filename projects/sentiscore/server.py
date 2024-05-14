@@ -67,7 +67,7 @@ def check_fields(request_args, valid_fields):
     for field, valid_field in valid_fields.items():
         fields = [f for f in request_args.get(field, default = '', type = str).split(',') if f]
         if not all(f in valid_field for f in fields):
-            return f"Invalid {field} provided"
+            return f"Invalid {field} value(s) provided."
     return None
 
 @app.route('/2/tweets', methods=['GET'])
@@ -92,19 +92,21 @@ def get_posts():
         'user.fields': valid_user_fields
     }
 
-    query_params = define_query_params(request.args, valid_fields)
-
-    # Check if requested fields are valid
-    error = check_fields(request.args, valid_fields)
-    if error:
-        return jsonify({"error": error}), 400
+    # Define query parameters and check if requested fields are valid for each field
+    requested_fields = {}
+    for field, valid_field in valid_fields.items():
+        query_params = define_query_params(request.args, {field: valid_field})
+        requested_fields[field] = query_params.get(field, [])
+        error = check_fields(request.args, {field: valid_field})
+        if error:
+            return jsonify({"error": error}), 400
 
     # Find the posts with the given IDs
     responses = []
     for post in posts['data']:
         if int(post['id']) in ids:
             # Create a response for each post
-            response = {field: post[field] for field in post if field in valid_tweet_fields}
+            response = {field: post[field] for field in post if field in requested_fields['tweet.fields'] and field in valid_fields['tweet.fields']}
 
             # Add expansions to the response
             for expansion in valid_expansions:
@@ -116,30 +118,24 @@ def get_posts():
                     else:
                         current = None
                         break
-                if current is not None:
+                if current is not None and expansion in requested_fields['expansions']:
                     response[expansion] = current
-
-            # Get the respective fields query parameter from query_params
-            requested_media_fields = query_params.get('media.fields', [])
-            requested_place_fields = query_params.get('place.fields', [])
-            requested_poll_fields = query_params.get('poll.fields', [])
-            requested_user_fields = query_params.get('user.fields', [])
 
             # Add additional fields to the response
             if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
-                response['media'] = [{field: media[field] for field in media if field in requested_media_fields} for media in posts['includes']['media']]
+                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in posts['includes']['media']]
 
             if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
-                response['places'] = [{field: place[field] for field in place if field in requested_place_fields} for place in posts['includes']['places']]
+                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in posts['includes']['places']]
 
             if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
-                response['polls'] = [{field: poll[field] for field in poll if field in requested_poll_fields} for poll in posts['includes']['polls']]
+                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in posts['includes']['polls']]
 
-            if 'users' in posts['includes'] and 'author_id' in valid_expansions:
+            if 'users' in posts['includes'] and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
                 for user in posts['includes']['users']:
                     if str(user['id']) == str(post['author_id']):
                         # Only include the fields specified in 'user.fields' query parameter
-                        response['author'] = {field: user[field] for field in user if field in requested_user_fields}
+                        response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
 
             responses.append(response)
 
