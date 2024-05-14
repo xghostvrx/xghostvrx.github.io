@@ -119,18 +119,21 @@ def get_posts():
                 if current is not None:
                     response[expansion] = current
 
+            # Get the respective fields query parameter from query_params
+            requested_media_fields = query_params.get('media.fields', [])
+            requested_place_fields = query_params.get('place.fields', [])
+            requested_poll_fields = query_params.get('poll.fields', [])
+            requested_user_fields = query_params.get('user.fields', [])
+
             # Add additional fields to the response
             if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
-                response['media'] = [{field: media[field] for field in valid_media_fields if field in media} for media in posts['includes']['media']]
+                response['media'] = [{field: media[field] for field in media if field in requested_media_fields} for media in posts['includes']['media']]
 
             if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
-                response['places'] = [{field: place[field] for field in valid_place_fields if field in place} for place in posts['includes']['places']]
+                response['places'] = [{field: place[field] for field in place if field in requested_place_fields} for place in posts['includes']['places']]
 
             if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
-                response['polls'] = [{field: poll[field] for field in valid_poll_fields if field in poll} for poll in posts['includes']['polls']]
-
-            # Get the 'user.fields' query parameter from query_params
-            requested_user_fields = query_params.get('user.fields', [])
+                response['polls'] = [{field: poll[field] for field in poll if field in requested_poll_fields} for poll in posts['includes']['polls']]
 
             if 'users' in posts['includes'] and 'author_id' in valid_expansions:
                 for user in posts['includes']['users']:
