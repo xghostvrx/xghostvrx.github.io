@@ -141,13 +141,13 @@ def get_posts():
 
     return jsonify(responses)
 
-@app.route('/2/tweets/<int:id>', methods=['GET'])
+@app.route('/2/tweets/<id>', methods=['GET'])
 def get_post(id):
     # Load replicate api data
     posts = load_json('posts.json')
 
     # Get the query paramaters from request
-    id = request.args.get('id', default = 1, type = int)
+    id = int(id)
 
     valid_tweet_fields, valid_expansions, valid_media_fields, valid_place_fields, valid_poll_fields, valid_user_fields = define_valid_fields()
 
@@ -162,20 +162,53 @@ def get_post(id):
 
     define_query_params(request.args, valid_fields)
 
-    # Check if requested fields are valid
-    error = check_fields(request.args, valid_fields)
-    if error:
-        return jsonify({"error": error}), 400
+    # Define query parameters and check if requested fields are valid for each field
+    requested_fields = {}
+    for field, valid_field in valid_fields.items():
+        query_params = define_query_params(request.args, {field: valid_field})
+        requested_fields[field] = query_params.get(field, [])
+        error = check_fields(request.args, {field: valid_field})
+        if error:
+            return jsonify({"error": error}), 400
 
     # Find the post with the given ID
     for post in posts['data']:
         if int(post['id']) == id:
+            # Create a response for the post
+            response = {field: post[field] for field in post if field in requested_fields['tweet.fields'] and field in valid_fields['tweet.fields']}
 
+            # Add expansions to the response
+            for expansion in valid_expansions:
+                parts = expansion.split('.')
+                current = post
+                for part in parts:
+                    if part in current:
+                        current = current[part]
+                    else:
+                        current = None
+                        break
+                if current is not None and expansion in requested_fields['expansions']:
+                    response[expansion] = current
+
+            # Add additional fields to the response
+            if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
+                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in posts['includes']['media']]
+
+            if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
+                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in posts['includes']['places']]
+
+            if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
+                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in posts['includes']['polls']]
+
+            if 'users' in posts['includes'] and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
+                for user in posts['includes']['users']:
+                    if str(user['id']) == str(post['author_id']):
+                        # Only include the fields specified in 'user.fields' query parameter
+                        response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
 
             return jsonify(response)
 
-    # if no post with given ID, return 404 error
-    abort(404)
+    return jsonify({"error": "Post not found"}), 404
 
 if __name__ == '__main__':
     initialize_server()
