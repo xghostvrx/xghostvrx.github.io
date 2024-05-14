@@ -43,11 +43,11 @@ def initialize_server():
 def get_post():
     # Get the query parameters from request
     id = request.args.get('id', default = 1, type = int)
-    tweet_fields = request.args.get('tweet.fields', default = '', type = str).split(',')
-    media_fields = request.args.get('media.fields', default = '', type = str).split(',')
-    place_fields = request.args.get('place.fields', default = '', type = str).split(',')
-    poll_fields = request.args.get('poll.fields', default = '', type = str).split(',')
-    user_fields = request.args.get('user.fields', default = '', type = str).split(',')
+    tweet_fields = [field for field in request.args.get('tweet.fields', default = '', type = str).split(',') if field]
+    media_fields = [field for field in request.args.get('media.fields', default = '', type = str).split(',') if field]
+    place_fields = [field for field in request.args.get('place.fields', default = '', type = str).split(',') if field]
+    poll_fields = [field for field in request.args.get('poll.fields', default = '', type = str).split(',') if field]
+    user_fields = [field for field in request.args.get('user.fields', default = '', type = str).split(',') if field]
 
     # Define valid fields
     valid_tweet_fields = ['attachments', 'author_id', 'context_annotations', 'conversation_id', 'created_at', 'edit_controls', 'entities', 'geo', 'id', 'in_reply_to_user_id', 'lang', 'non_public_metrics', 'public_metrics', 'organic_metrics', 'promoted_metrics', 'possibly_sensitive', 'referenced_tweets', 'reply_settings', 'source', 'text', 'withheld']
@@ -72,9 +72,9 @@ def get_post():
         posts = json.load(f)
     # Find the post with the given ID
     for post in posts['data']:
-        if post['id'] == id:
+        if int(post['id']) == id:
             # Create a new dictionary with only the requested fields
-            response = {field: post [field] for field in tweet_fields if field in post}
+            response = {field: post[field] for field in tweet_fields if field in post}
             # Add additional fields to the response
             if 'includes' in post:
                 includes = post['includes']
