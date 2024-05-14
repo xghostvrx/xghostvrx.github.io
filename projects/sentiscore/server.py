@@ -44,6 +44,7 @@ def get_post():
     # Get the query parameters from request
     id = request.args.get('id', default = 1, type = int)
     tweet_fields = [field for field in request.args.get('tweet.fields', default = '', type = str).split(',') if field]
+    expansions = [field for field in request.args.get('expansions', default = '', type = str).split(',') if field]
     media_fields = [field for field in request.args.get('media.fields', default = '', type = str).split(',') if field]
     place_fields = [field for field in request.args.get('place.fields', default = '', type = str).split(',') if field]
     poll_fields = [field for field in request.args.get('poll.fields', default = '', type = str).split(',') if field]
@@ -51,6 +52,7 @@ def get_post():
 
     # Define valid fields
     valid_tweet_fields = ['attachments', 'author_id', 'context_annotations', 'conversation_id', 'created_at', 'edit_controls', 'entities', 'geo', 'id', 'in_reply_to_user_id', 'lang', 'non_public_metrics', 'public_metrics', 'organic_metrics', 'promoted_metrics', 'possibly_sensitive', 'referenced_tweets', 'reply_settings', 'source', 'text', 'withheld']
+    valid_expansions = ['attachments.poll_ids', 'attachments.media_keys', 'author_id', 'edit_history_tweet_ids', 'entities.mentions.username', 'geo.place_id', 'in_reply_to_user_id', 'referenced_tweets.id', 'referenced_tweets.id.author_id']
     valid_media_fields = ['duration_ms', 'height', 'media_key', 'preview_image_url', 'type', 'url', 'width', 'public_metrics', 'non_public_metrics', 'organic_metrics', 'promoted_metrics', 'alt_text', 'variants']
     valid_place_fields = ['contained_within', 'country', 'country_code', 'full_name', 'geo', 'id', 'name', 'place_type']
     valid_poll_fields = ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status']
@@ -59,6 +61,8 @@ def get_post():
     # Check if all provided fields are valid
     if not all(field in valid_tweet_fields for field in tweet_fields):
         return jsonify({"error": "Invalid tweet field provided"}), 400
+    if not all(field in valid_expansions for field in expansions):
+        return jsonify({"error": "Invalid expansion provided"}), 400
     if not all(field in valid_media_fields for field in media_fields):
         return jsonify({"error": "Invalid media field provided"}), 400
     if not all(field in valid_place_fields for field in place_fields):
@@ -70,23 +74,43 @@ def get_post():
 
     with open('posts.json', 'r') as f:
         posts = json.load(f)
+
     # Find the post with the given ID
     for post in posts['data']:
         if int(post['id']) == id:
             # Create a new dictionary with only the requested fields
             response = {field: post[field] for field in tweet_fields if field in post}
+
+            # Add expansions to the response
+            for expansion in expansions:
+                parts = expansion.split('.')
+                current = post
+                for part in parts:
+                    if part in current:
+                        current = current[part]
+                    else:
+                        current = None
+                        break
+                if current is not None:
+                    response[expansion] = current
+
             # Add additional fields to the response
-            if 'includes' in post:
-                includes = post['includes']
-                if 'media' in includes:
-                    response['media'] = {field: includes['media'][field] for field in media_fields if field in includes['media']}
-                if 'places' in includes:
-                    response['places'] = {field: includes['places'][field] for field in place_fields if field in includes['places']}
-                if 'polls' in includes:
-                    response['polls'] = {field: includes['polls'][field] for field in poll_fields if field in includes['polls']}
-                if 'users' in includes:
-                    response['users'] = {field: includes['users'][field] for field in user_fields if field in includes['users']}
+            if 'media' in posts['includes'] and 'attachments.media_keys' in expansions:
+                response['media'] = [{field: media[field] for field in media_fields if field in media} for media in posts['includes']['media']]
+
+            if 'places' in posts['includes'] and 'geo.place_id' in expansions:
+                response['places'] = [{field: place[field] for field in place_fields if field in place} for place in posts['includes']['places']]
+
+            if 'polls' in posts['includes'] and 'attachments.poll_ids' in expansions:
+                response['polls'] = [{field: poll[field] for field in poll_fields if field in poll} for poll in posts['includes']['polls']]
+
+            if 'users' in posts['includes'] and 'author_id' in expansions:
+                for user in posts['includes']['users']:
+                    if str(user['id']) == str(post['author_id']):
+                        response['author'] = {field: user[field] for field in user_fields if field in user}
+
             return jsonify(response)
+
     # If no post with given ID, return 404 error
     abort(404)
 
