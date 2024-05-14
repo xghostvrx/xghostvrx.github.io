@@ -48,6 +48,26 @@ def get_post():
     place_fields = request.args.get('place.fields', default = '', type = str).split(',')
     poll_fields = request.args.get('poll.fields', default = '', type = str).split(',')
     user_fields = request.args.get('user.fields', default = '', type = str).split(',')
+
+    # Define valid fields
+    valid_tweet_fields = ['attachments', 'author_id', 'context_annotations', 'conversation_id', 'created_at', 'edit_controls', 'entities', 'geo', 'id', 'in_reply_to_user_id', 'lang', 'non_public_metrics', 'public_metrics', 'organic_metrics', 'promoted_metrics', 'possibly_sensitive', 'referenced_tweets', 'reply_settings', 'source', 'text', 'withheld']
+    valid_media_fields = ['duration_ms', 'height', 'media_key', 'preview_image_url', 'type', 'url', 'width', 'public_metrics', 'non_public_metrics', 'organic_metrics', 'promoted_metrics', 'alt_text', 'variants']
+    valid_place_fields = ['contained_within', 'country', 'country_code', 'full_name', 'geo', 'id', 'name', 'place_type']
+    valid_poll_fields = ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status']
+    valid_user_fields = ['created_at', 'description', 'entities', 'id', 'location', 'most_recent_tweet_id', 'name', 'pinned_tweet_id', 'profile_image_url', 'protected', 'public_metrics', 'url', 'username', 'verified', 'verified_type', 'withheld']
+
+    # Check if all provided fields are valid
+    if not all(field in valid_tweet_fields for field in tweet_fields):
+        return jsonify({"error": "Invalid tweet field provided"}), 400
+    if not all(field in valid_media_fields for field in media_fields):
+        return jsonify({"error": "Invalid media field provided"}), 400
+    if not all(field in valid_place_fields for field in place_fields):
+        return jsonify({"error": "Invalid place field provided"}), 400
+    if not all(field in valid_poll_fields for field in poll_fields):
+        return jsonify({"error": "Invalid poll field provided"}), 400
+    if not all(field in valid_user_fields for field in user_fields):
+        return jsonify({"error": "Invalid user field provided"}), 400
+
     with open('posts.json', 'r') as f:
         posts = json.load(f)
     # Find the post with the given ID
