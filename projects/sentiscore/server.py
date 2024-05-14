@@ -56,19 +56,12 @@ def define_valid_fields():
     return valid_tweet_fields, valid_expansions, valid_media_fields, valid_place_fields, valid_poll_fields, valid_user_fields
 
 def define_query_params(request_args, valid_fields):
-    query_params = {}
-    for field, valid_field in valid_fields.items():
-        fields = [f for f in request_args.get(field, default = '', type = str).split(',') if f]
-        if all(f in valid_field for f in fields):
-            query_params[field] = fields
+    query_params = {field: [f for f in request_args.get(field, default = '', type = str).split(',') if f and f in valid_field] for field, valid_field in valid_fields.items()}
     return query_params
 
 def check_fields(request_args, valid_fields):
-    for field, valid_field in valid_fields.items():
-        fields = [f for f in request_args.get(field, default = '', type = str).split(',') if f]
-        if not all(f in valid_field for f in fields):
-            return f"Invalid {field} value(s) provided."
-    return None
+    errors = [f"Invalid {field} value(s) provided." for field, valid_field in valid_fields.items() if not all(f in valid_field for f in request_args.get(field, default = '', type = str).split(',') if f)]
+    return errors[0] if errors else None
 
 @app.route('/2/tweets', methods=['GET'])
 def get_posts():
@@ -79,7 +72,7 @@ def get_posts():
     ids_param = request.args.get('ids', default = '1', type = str)
 
     # Split the parameter into a list of IDs
-    ids = [int(id) for id in ids_param.split(',')]
+    ids = set(int(id) for id in ids_param.split(','))
 
     valid_tweet_fields, valid_expansions, valid_media_fields, valid_place_fields, valid_poll_fields, valid_user_fields = define_valid_fields()
 
@@ -93,13 +86,10 @@ def get_posts():
     }
 
     # Define query parameters and check if requested fields are valid for each field
-    requested_fields = {}
-    for field, valid_field in valid_fields.items():
-        query_params = define_query_params(request.args, {field: valid_field})
-        requested_fields[field] = query_params.get(field, [])
-        error = check_fields(request.args, {field: valid_field})
-        if error:
-            return jsonify({"error": error}), 400
+    requested_fields = {field: define_query_params(request.args, {field: valid_field}).get(field, []) for field, valid_field in valid_fields.items()}
+    error = check_fields(request.args, valid_fields)
+    if error:
+        return jsonify({"error": error}), 400
 
     # Find the posts with the given IDs
     responses = []
@@ -122,20 +112,20 @@ def get_posts():
                     response[expansion] = current
 
             # Add additional fields to the response
-            if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
-                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in posts['includes']['media']]
+            includes = posts.get('includes', {})
+            if 'media' in includes and 'attachments.media_keys' in valid_expansions:
+                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in includes['media']]
 
-            if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
-                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in posts['includes']['places']]
+            if 'places' in includes and 'geo.place_id' in valid_expansions:
+                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in includes['places']]
 
-            if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
-                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in posts['includes']['polls']]
+            if 'polls' in includes and 'attachments.poll_ids' in valid_expansions:
+                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in includes['polls']]
 
-            if 'users' in posts['includes'] and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
-                for user in posts['includes']['users']:
-                    if str(user['id']) == str(post['author_id']):
-                        # Only include the fields specified in 'user.fields' query parameter
-                        response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
+            if 'users' in includes and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
+                user = next((user for user in includes['users'] if str(user['id']) == str(post['author_id'])), None)
+                if user:
+                    response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
 
             responses.append(response)
 
@@ -146,7 +136,7 @@ def get_post(id):
     # Load replicate api data
     posts = load_json('posts.json')
 
-    # Get the query paramaters from request
+    # Convert the id to int
     id = int(id)
 
     valid_tweet_fields, valid_expansions, valid_media_fields, valid_place_fields, valid_poll_fields, valid_user_fields = define_valid_fields()
@@ -160,53 +150,50 @@ def get_post(id):
         'user.fields': valid_user_fields
     }
 
-    define_query_params(request.args, valid_fields)
-
     # Define query parameters and check if requested fields are valid for each field
-    requested_fields = {}
-    for field, valid_field in valid_fields.items():
-        query_params = define_query_params(request.args, {field: valid_field})
-        requested_fields[field] = query_params.get(field, [])
-        error = check_fields(request.args, {field: valid_field})
-        if error:
-            return jsonify({"error": error}), 400
+    requested_fields = {field: define_query_params(request.args, {field: valid_field}).get(field, []) for field, valid_field in valid_fields.items()}
+    errors = [check_fields(request.args, {field: valid_field}) for field, valid_field in valid_fields.items() if check_fields(request.args, {field: valid_field})]
+
+    if errors:
+        return jsonify({"error": errors[0]}), 400
 
     # Find the post with the given ID
-    for post in posts['data']:
-        if int(post['id']) == id:
-            # Create a response for the post
-            response = {field: post[field] for field in post if field in requested_fields['tweet.fields'] and field in valid_fields['tweet.fields']}
+    post = next((post for post in posts['data'] if int(post['id']) == id), None)
 
-            # Add expansions to the response
-            for expansion in valid_expansions:
-                parts = expansion.split('.')
-                current = post
-                for part in parts:
-                    if part in current:
-                        current = current[part]
-                    else:
-                        current = None
-                        break
-                if current is not None and expansion in requested_fields['expansions']:
-                    response[expansion] = current
+    if post:
+        # Create a response for the post
+        response = {field: post[field] for field in post if field in requested_fields['tweet.fields'] and field in valid_fields['tweet.fields']}
 
-            # Add additional fields to the response
-            if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
-                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in posts['includes']['media']]
+        # Add expansions to the response
+        for expansion in valid_expansions:
+            parts = expansion.split('.')
+            current = post
+            for part in parts:
+                if part in current:
+                    current = current[part]
+                else:
+                    current = None
+                    break
+            if current is not None and expansion in requested_fields['expansions']:
+                response[expansion] = current
 
-            if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
-                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in posts['includes']['places']]
+        # Add additional fields to the response
+        includes = posts.get('includes', {})
+        if 'media' in includes and 'attachments.media_keys' in valid_expansions:
+            response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in includes['media']]
 
-            if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
-                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in posts['includes']['polls']]
+        if 'places' in includes and 'geo.place_id' in valid_expansions:
+            response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in includes['places']]
 
-            if 'users' in posts['includes'] and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
-                for user in posts['includes']['users']:
-                    if str(user['id']) == str(post['author_id']):
-                        # Only include the fields specified in 'user.fields' query parameter
-                        response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
+        if 'polls' in includes and 'attachments.poll_ids' in valid_expansions:
+            response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in includes['polls']]
 
-            return jsonify(response)
+        if 'users' in includes and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
+            user = next((user for user in includes['users'] if str(user['id']) == str(post['author_id'])), None)
+            if user:
+                response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
+
+        return jsonify(response)
 
     return jsonify({"error": "Post not found"}), 404
 
