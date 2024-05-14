@@ -92,7 +92,7 @@ def get_posts():
         'user.fields': valid_user_fields
     }
 
-    define_query_params(request.args, valid_fields)
+    query_params = define_query_params(request.args, valid_fields)
 
     # Check if requested fields are valid
     error = check_fields(request.args, valid_fields)
@@ -105,6 +105,39 @@ def get_posts():
         if int(post['id']) in ids:
             # Create a response for each post
             response = {field: post[field] for field in post if field in valid_tweet_fields}
+
+            # Add expansions to the response
+            for expansion in valid_expansions:
+                parts = expansion.split('.')
+                current = post
+                for part in parts:
+                    if part in current:
+                        current = current[part]
+                    else:
+                        current = None
+                        break
+                if current is not None:
+                    response[expansion] = current
+
+            # Add additional fields to the response
+            if 'media' in posts['includes'] and 'attachments.media_keys' in valid_expansions:
+                response['media'] = [{field: media[field] for field in valid_media_fields if field in media} for media in posts['includes']['media']]
+
+            if 'places' in posts['includes'] and 'geo.place_id' in valid_expansions:
+                response['places'] = [{field: place[field] for field in valid_place_fields if field in place} for place in posts['includes']['places']]
+
+            if 'polls' in posts['includes'] and 'attachments.poll_ids' in valid_expansions:
+                response['polls'] = [{field: poll[field] for field in valid_poll_fields if field in poll} for poll in posts['includes']['polls']]
+
+            # Get the 'user.fields' query parameter from query_params
+            requested_user_fields = query_params.get('user.fields', [])
+
+            if 'users' in posts['includes'] and 'author_id' in valid_expansions:
+                for user in posts['includes']['users']:
+                    if str(user['id']) == str(post['author_id']):
+                        # Only include the fields specified in 'user.fields' query parameter
+                        response['author'] = {field: user[field] for field in user if field in requested_user_fields}
+
             responses.append(response)
 
     return jsonify(responses)
@@ -115,6 +148,7 @@ def get_post(id):
     posts = load_json('posts.json')
 
     # Get the query paramaters from request
+    id = request.args.get('id', default = 1, type = int)
 
     valid_tweet_fields, valid_expansions, valid_media_fields, valid_place_fields, valid_poll_fields, valid_user_fields = define_valid_fields()
 
