@@ -19,24 +19,29 @@ def index():
 
 def initialize_server():
     db_name = getenv('DB_NAME')
-    if not check_database_exists(db_name):
-        logging.info(f"Database '{db_name}' does not exist.")
-        logging.info(f"Creating '{db_name}' database.")
-        create_database(db_name)
+    try:
+        if not check_database_exists(db_name):
+            logging.info(f"Database '{db_name}' does not exist.")
+            logging.info(f"Creating '{db_name}' database.")
+            create_database(db_name)
 
-    if not check_table_exists(db_name):
-        logging.info("'posts' table does not exists.")
-        logging.info("Creating 'posts' table.")
-        create_table(db_name)
+        if not check_table_exists(db_name):
+            logging.info("'posts' table does not exists.")
+            logging.info("Creating 'posts' table.")
+            create_table(db_name)
 
-    if not check_columns(db_name):
-        logging.warning("Data columns in 'posts' table do not appear to be appropriate.")
-        logging.warning("Dropping the 'posts' table and creating a new one.")
-        drop_table(db_name)
-        create_table(db_name)
+        if not check_columns(db_name):
+            logging.warning("Data columns in 'posts' table do not appear to be appropriate.")
+            logging.warning("Dropping the 'posts' table and creating a new one.")
+            drop_table(db_name)
+            create_table(db_name)
+
+    except Exception as e:
+        logging.error(f"An error occurred while initializing the server: {e}")
+        exit(1)
 
     logging.info('The application has passed initialization checks.')
-    logging.info('Running the application server, as expected.')
+    logging.info('Running the server application (as expected).')
     app.run()
 
 @app.route('/2/tweets', methods=['GET'])
