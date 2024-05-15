@@ -13,10 +13,6 @@ load_dotenv(override=True)
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 def initialize_server():
     db_name = getenv('DB_NAME')
     try:
@@ -43,6 +39,10 @@ def initialize_server():
     logging.info('The application has passed initialization checks.')
     logging.info('Running the server application (as expected).')
     app.run()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/2/tweets', methods=['GET'])
 def post_lookup_by_IDs():

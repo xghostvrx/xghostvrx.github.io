@@ -1,5 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
+
+import flask
 from server import app, initialize_server
 
 class TestServer(unittest.TestCase):
@@ -13,15 +15,20 @@ class TestServer(unittest.TestCase):
 
     def test_index_route(self):
         response = self.app.get('/')
-        # Assertions to test the response of the index route
+        self.assertEqual(response.status_code, 200)
+
+    def test_index_route_template(self):
+        with self.app as c:
+            c.get('/')
+            self.assertEqual(flask.request.endpoint, 'index')
 
     def test_post_lookup_by_IDs_route(self):
         response = self.app.get('/2/tweets')
-        # Assertions to test the response of the post_lookup_by_IDs route
+        self.assertEqual(response.status_code, 200)
 
     def test_post_lookup_by_ID_route(self):
-        response = self.app.get('/2/tweets/123')
-        # Assertions to test the response of the post_lookup_by_ID route
+        response = self.app.get('/2/tweets/1668011771532040000')
+        self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
         if self.app_context:
