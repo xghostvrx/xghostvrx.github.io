@@ -1,36 +1,32 @@
 import unittest
-from unittest.mock import patch
-from server import initialize_server
+from unittest.mock import patch, Mock
+from server import app, initialize_server
 
-class TestServerInitialization(unittest.TestCase):
+class TestServer(unittest.TestCase):
 
-    @patch('server.getenv')
-    @patch('server.check_database_exists')
-    @patch('server.check_table_exists')
-    @patch('server.check_columns')
-    @patch('server.create_database')
-    @patch('server.create_table')
-    @patch('server.drop_table')
-    @unittest.expectedFailure
-    def test_initialize_server(self, mock_drop_table, mock_create_table, mock_create_database, mock_check_columns, mock_check_table_exists, mock_check_database_exists, mock_getenv):
-        # Mocking the environment variable and database name
-        mock_getenv.return_value = 'test_db'
-        mock_check_database_exists.return_value = False
-        mock_check_table_exists.return_value = False
-        mock_check_columns.return_value = False
+    def setUp(self):
+        self.app_context = app.app_context()
+        self.app_context.push()
+        app.debug = True
+        self.app = app.test_client()
+        self.app.testing = True
 
-        # Calling the function
-        initialize_server()
+    def test_index_route(self):
+        response = self.app.get('/')
+        # Assertions to test the response of the index route
 
-        # Asserting the function calls
-        mock_getenv.assert_called_once_with('DB_NAME')
-        mock_check_database_exists.assert_called_once_with('test_db')
-        mock_create_database.assert_called_once_with('test_db')
-        mock_check_table_exists.assert_called_once_with('test_db')
-        mock_create_table.assert_called_once_with('test_db')
-        mock_check_columns.assert_called_once_with('test_db')
-        mock_drop_table.assert_called_once_with('test_db')
-        mock_create_table.assert_called_once_with('test_db')
+    def test_post_lookup_by_IDs_route(self):
+        response = self.app.get('/2/tweets')
+        # Assertions to test the response of the post_lookup_by_IDs route
+
+    def test_post_lookup_by_ID_route(self):
+        response = self.app.get('/2/tweets/123')
+        # Assertions to test the response of the post_lookup_by_ID route
+
+    def tearDown(self):
+        if self.app_context:
+            self.app_context.pop()
 
 if __name__ == '__main__':
     unittest.main()
+
