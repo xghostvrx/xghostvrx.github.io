@@ -4,9 +4,16 @@ from flask import jsonify, request
 
 
 def load_json(filename):
-    with open(filename, 'r') as f:
-        data = json.load(f)
-    return data
+    try:
+        with open(filename, 'r') as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        print(f"Error: The file {filename} does not exist.")
+        return None
+    except json.JSONDecodeError:
+        print(f"Error: The file {filename} is not a valid JSON file.")
+        return None
 
 def define_valid_fields():
     # Get Twitter v2 API valid fields
