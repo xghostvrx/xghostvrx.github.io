@@ -66,7 +66,7 @@ def check_table_exists(db_name):
 
 def check_columns(db_name):
     conn, cur = connect_to_database(db_name)
-    columns_to_check = ['id', 'post_id', 'post_text', 'created_at', 'user_id', 'user_name', 'user_profile_image_url', 'retweet_count', 'like_count']
+    columns_to_check = ['id', 'created_at', 'author_id', 'name', 'username', 'description', 'text']
     try:
         for column in columns_to_check:
             cur.execute("""
@@ -98,16 +98,14 @@ def create_database(db_name):
 
 def create_table(db_name):
     conn, cur = connect_to_database(db_name)
-    cur.execute('CREATE TABLE posts (id serial PRIMARY KEY,'
-                                'post_id VARCHAR(255) UNIQUE,'
-                                'content TEXT,'
-                                'created_at TIMESTAMP,'
-                                'user_id VARCHAR(255),'
-                                'user_name VARCHAR(15),'
-                                'user_profile_image_url VARCHAR(255),'
-                                'retweet_count INT,'
-                                'like_count INT);'
-                                )
+    cur.execute('CREATE TABLE posts (id VARCHAR(255) PRIMARY KEY,'
+                'created_at TIMESTAMP,'
+                'author_id VARCHAR(255),'
+                'name VARCHAR(50),'
+                'username VARCHAR(15),'
+                'description TEXT,'
+                'text TEXT);'
+                )
     conn.commit()
 
 def drop_table(db_name):

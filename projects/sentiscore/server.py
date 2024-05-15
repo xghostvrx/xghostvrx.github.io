@@ -24,19 +24,19 @@ def initialize_server():
         logging.info(f"Creating '{db_name}' database.")
         create_database(db_name)
 
-    elif not check_table_exists(db_name):
+    if not check_table_exists(db_name):
         logging.info("'posts' table does not exists.")
         logging.info("Creating 'posts' table.")
         create_table(db_name)
 
-    elif not check_columns(db_name):
+    if not check_columns(db_name):
         logging.warning("Data columns in 'posts' table do not appear to be appropriate.")
         logging.warning("Dropping the 'posts' table and creating a new one.")
         drop_table(db_name)
         create_table(db_name)
 
     logging.info('The application has passed initialization checks.')
-    logging.info('Running the application and its server as intented.')
+    logging.info('Running the application server, as expected.')
     app.run()
 
 @app.route('/2/tweets', methods=['GET'])
