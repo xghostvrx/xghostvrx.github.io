@@ -66,7 +66,12 @@ def get_posts():
     for post in posts['data']:
         if int(post['id']) in ids:
             # Create a response for each post
-            response = {field: post[field] for field in post if field in requested_fields['tweet.fields'] and field in valid_fields['tweet.fields']}
+            response = {'data': {}, 'includes': {}}
+
+            # Add tweet.fields to the response
+            for field in requested_fields.get('tweet.fields', []):
+                if field in post:
+                    response['data'][field] = post[field]
 
             # Add expansions to the response
             for expansion in valid_expansions:
@@ -79,29 +84,30 @@ def get_posts():
                         current = None
                         break
                 if current is not None and expansion in requested_fields['expansions']:
-                    response[expansion] = current
+                    response['data'][expansion] = current
 
             # Add additional fields to the response
             includes = posts.get('includes', {})
             if 'media' in includes and 'attachments.media_keys' in valid_expansions:
-                response['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in includes['media']]
+                response['includes']['media'] = [{field: media[field] for field in media if field in requested_fields['media.fields']} for media in includes['media']]
 
             if 'places' in includes and 'geo.place_id' in valid_expansions:
-                response['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in includes['places']]
+                response['includes']['places'] = [{field: place[field] for field in place if field in requested_fields['place.fields']} for place in includes['places']]
 
             if 'polls' in includes and 'attachments.poll_ids' in valid_expansions:
-                response['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in includes['polls']]
+                response['includes']['polls'] = [{field: poll[field] for field in poll if field in requested_fields['poll.fields']} for poll in includes['polls']]
 
             if 'users' in includes and 'author_id' in valid_expansions and 'author_id' in requested_fields['expansions']:
                 user = next((user for user in includes['users'] if str(user['id']) == str(post['author_id'])), None)
                 if user:
-                    response['author'] = {field: user[field] for field in user if field in requested_fields['user.fields']}
+                    response['includes']['users'] = [{field: user[field] for field in user if field in requested_fields['user.fields']}]
 
             responses.append(response)
 
     return jsonify(responses)
 
 def get_post(id):
+
     # Load replicate api data
     posts = load_json('posts.json')
 
