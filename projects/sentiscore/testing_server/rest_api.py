@@ -51,28 +51,38 @@ def get_posts():
     # Filter posts based on 'ids' argument
     posts = load_json('posts.json')
     filtered_posts = []
+    filtered_users = []
     if 'ids' in args:
         ids = args['ids'].split(',')
         ids = [int(id) for id in ids]
         for post in posts['data']:
             if post['id'] in ids:
+                # Include the specified tweet fields (if requested)
                 filtered_post = {key: post[key] for key in tweet_fields if key in post} if tweet_fields else post
+
+                # Include the specified user fields (if requested)
+                author_id = post['author_id']
+                for user in posts['includes']['users']:
+                    if user['id'] == author_id:
+                        filtered_user = {key: user[key] for key in user_fields if key in user} if user_fields else user
+                        filtered_users.append(filtered_user)
+
                 filtered_posts.append(filtered_post)
 
-    return filtered_posts
+    # Prepare the response
+    response = {
+        'data': filtered_posts,
+        'includes': {
+            'users': filtered_users
+        },
+        'meta': {
+            'newest_id': str(filtered_posts[0]['id']) if filtered_posts else None,
+            'oldest_id': str(filtered_posts[-1]['id']) if filtered_posts else None,
+            'result_count': len(filtered_posts)
+        }
+    }
 
-"""     # Filter data based on request arguments
-    posts = load_json('posts.json')
-    filtered_posts = []
-    for post in posts['data']:
-        match = True
-        for key, string in args.items():
-            values = string.split(',')
-            if key in post and str(post[key]) not in values:
-                match = False
-                break
-            if match:
-                filtered_posts.append(post) """
+    return response
 
     #return 'The request arguments were successful.'
 
