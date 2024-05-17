@@ -11,7 +11,7 @@ def load_json(filename):
 
 # Predefined dictionary with acceptable keys and values
 acceptable_args = {
-    'ids': ['1667982248614730000'],
+    'ids': lambda x: x.isdigit() and len(x) == 19,
     'tweet.fields': ['author_id', 'created_at', 'id', 'text'],
     'user.fields': ['created_at', 'description', 'id', 'name', 'username']
 }
@@ -25,12 +25,17 @@ def get_posts():
     errors = []
     for key, string in args.items():
         values = string.split(',')
-        if key not in acceptable_args or not isinstance(acceptable_args[key], list):
+        if key not in acceptable_args:
             errors.append(f"Invalid argument: {key}")
             continue  # Skip further checks for this key since it's already invalid
-        for value in values:
-            if value not in acceptable_args[key]:
-                errors.append(f"Invalid argument value: {key}={value}")
+        if isinstance(acceptable_args[key], list):  # Check if the acceptable value is a list
+            for value in values:
+                if value not in acceptable_args[key]:
+                    errors.append(f"Invalid argument value: {key}={value}")
+        elif callable(acceptable_args[key]):  # Check if the acceptable value is a function
+            for value in values:
+                if not acceptable_args[key](value):  # Call the function with the value
+                    errors.append(f"Invalid argument value: {key}={value}")
 
     if errors:
         return jsonify({"error": errors}), 400
@@ -44,8 +49,12 @@ def get_posts():
         args['user.fields'] = user_fields
 
     # Filter posts based on 'ids' argument
+    posts = load_json('posts.json')
+    filtered_posts = []
+    if 'ids' in args:
+        ids = args['ids'].split(',')
 
-    return tweet_fields + user_fields
+    return ids
 
 """     # Filter data based on request arguments
     posts = load_json('posts.json')
