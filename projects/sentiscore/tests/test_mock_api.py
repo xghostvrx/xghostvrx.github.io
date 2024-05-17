@@ -2,10 +2,7 @@ import unittest
 from unittest.mock import patch, Mock
 import json
 
-from flask import Flask
-from flask.testing import FlaskClient
-
-from testing_server.mock_api import app
+from server import app
 
 class TestMockAPI(unittest.TestCase):
 
@@ -14,7 +11,7 @@ class TestMockAPI(unittest.TestCase):
         self.app.testing = True
 
     def test_get_posts_with_valid_arguments(self):
-        response = self.app.get('/posts?ids=1667982248614730000&tweet.fields=created_at,text&user.fields=username')
+        response = self.app.get('/tweets?ids=1667982248614730000&tweet.fields=created_at,text&user.fields=username')
         self.assertEqual(response.status_code, 200)
 
         # If the endpoint returns JSON data, check the data:
@@ -26,7 +23,7 @@ class TestMockAPI(unittest.TestCase):
         self.assertIn('result_count', json_data['meta'])
 
     def test_get_posts_with_invalid_arguments(self):
-        response = self.app.get('/posts?ids=1,2,3&tweet.fields=created_at,text&user.fields=invalid_field')
+        response = self.app.get('/tweets?ids=1,2,3&tweet.fields=created_at,text&user.fields=invalid_field')
         self.assertEqual(response.status_code, 400)
 
         # If the endpoint returns JSON data, check the error message:
