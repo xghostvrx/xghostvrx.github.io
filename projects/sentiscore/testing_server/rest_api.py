@@ -74,8 +74,8 @@ def get_posts():
     response = {
         'data': filtered_posts,
         'meta': {
-            'newest_id': str(filtered_posts[0]['id']) if filtered_posts else None,
-            'oldest_id': str(filtered_posts[-1]['id']) if filtered_posts else None,
+            'newest_id': str(filtered_posts[0]['id']) if filtered_posts and 'id' in filtered_posts[0] else None,
+            'oldest_id': str(filtered_posts[-1]['id']) if filtered_posts and 'id' in filtered_posts[-1] else None,
             'result_count': len(filtered_posts)
         }
     }
