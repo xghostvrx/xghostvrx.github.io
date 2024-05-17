@@ -53,8 +53,13 @@ def get_posts():
     filtered_posts = []
     if 'ids' in args:
         ids = args['ids'].split(',')
+        ids = [int(id) for id in ids]
+        for post in posts['data']:
+            if post['id'] in ids:
+                filtered_post = {key: post[key] for key in tweet_fields if key in post} if tweet_fields else post
+                filtered_posts.append(filtered_post)
 
-    return ids
+    return filtered_posts
 
 """     # Filter data based on request arguments
     posts = load_json('posts.json')
