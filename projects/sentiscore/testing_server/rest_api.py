@@ -57,24 +57,22 @@ def get_posts():
         ids = [int(id) for id in ids]
         for post in posts['data']:
             if post['id'] in ids:
-                # Include the specified tweet fields (if requested)
+                # Include the specified tweet fields (if requested in the arguments)
                 filtered_post = {key: post[key] for key in tweet_fields if key in post} if tweet_fields else post
 
-                # Include the specified user fields (if requested)
+                # Include the specified user fields (if requested in the arguments)
                 author_id = post['author_id']
                 for user in posts['includes']['users']:
                     if user['id'] == author_id:
                         filtered_user = {key: user[key] for key in user_fields if key in user} if user_fields else user
-                        filtered_users.append(filtered_user)
+                        if filtered_user not in filtered_users:
+                            filtered_users.append(filtered_user)
 
                 filtered_posts.append(filtered_post)
 
-    # Prepare the response
+    # Prepare the response with the filtered posts
     response = {
         'data': filtered_posts,
-        'includes': {
-            'users': filtered_users
-        },
         'meta': {
             'newest_id': str(filtered_posts[0]['id']) if filtered_posts else None,
             'oldest_id': str(filtered_posts[-1]['id']) if filtered_posts else None,
@@ -82,21 +80,11 @@ def get_posts():
         }
     }
 
+    # Include 'user' data in the response if 'user.fields' is specified in the arguments
+    if user_fields[0]:
+        response['includes'] = {'users': filtered_users}
+
     return response
-
-    #return 'The request arguments were successful.'
-
-    #return jsonify(load_json('posts.json'))
-
-    # Prepare the response
-"""     response = {
-        'data': filtered_posts,
-        'meta': {
-            'result_count': len(filtered_posts)
-        }
-    }
-
-    return jsonify(response) """
 
 if __name__ == '__main__':
     app.run(debug=True)
