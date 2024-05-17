@@ -5,9 +5,9 @@ import json
 from flask import Flask
 from flask.testing import FlaskClient
 
-from rest_api import app
+from testing_server.mock_api import app
 
-class TestRestAPI(unittest.TestCase):
+class TestMockAPI(unittest.TestCase):
 
     def setUp(self):
         self.app = app.test_client()

@@ -1,7 +1,6 @@
-# database.py
 from os import getenv
 from psycopg import connect, OperationalError
-from sys import exit
+import logging
 
 def connect_to_server():
     try:
@@ -11,10 +10,10 @@ def connect_to_server():
             password=getenv('DB_PASSWORD')
         )
         cur = conn.cursor()
-    except:
-        print("Error: Could not connect to the database server.")
+        return conn, cur
+    except OperationalError as e:
+        logging.error(f"Error: Could not connect to the database server. {e}")
         exit(1)
-    return conn, cur
 
 def connect_to_database(db_name):
     try:
@@ -25,26 +24,21 @@ def connect_to_database(db_name):
             dbname=db_name
         )
         cur = conn.cursor()
-    except OperationalError:
-        print(f"Error: Could not connect to the '{db_name}' database.")
+        return conn, cur
+    except OperationalError as e:
+        logging.error(f"Error: Could not connect to the '{db_name}' database. {e}")
         exit(1)
-    return conn, cur
 
 def check_database_exists(db_name):
     conn, cur = connect_to_server()
     try:
-        cur.execute("""
-            SELECT EXISTS (
-                SELECT datname FROM pg_database WHERE datname = %s
-            )
-        """, (db_name,))
-        database_exists = cur.fetchone()[0]
-    except OperationalError:
-        print("Error: Could not check if database exists.")
+        cur.execute("SELECT EXISTS (SELECT datname FROM pg_database WHERE datname = %s)", (db_name,))
+        return cur.fetchone()[0]
+    except OperationalError as e:
+        logging.error(f"Error: Could not check if database exists. {e}")
         exit(1)
     finally:
         conn.close()
-    return database_exists
 
 def check_table_exists(db_name):
     conn, cur = connect_to_database(db_name)
@@ -56,13 +50,12 @@ def check_table_exists(db_name):
                 AND table_name = 'posts'
             );
         """)
-        table_exists = cur.fetchone()[0]
-    except OperationalError:
-        print("Error: Could not check if table exists.")
+        return cur.fetchone()[0]
+    except OperationalError as e:
+        logging.error(f"Error: Could not check if table exists. {e}")
         exit(1)
     finally:
         conn.close()
-    return table_exists
 
 def check_columns(db_name):
     conn, cur = connect_to_database(db_name)
@@ -76,13 +69,12 @@ def check_columns(db_name):
                 AND table_name = 'posts'
                 AND column_name = %s
             """, (column,))
-            result = cur.fetchone()
-            if result is None:
-                print(f"Column '{column}' does not exist.")
+            if cur.fetchone() is None:
+                logging.warning(f"Column '{column}' does not exist.")
                 return False
         return True
-    except OperationalError:
-        print("Error: Could not check if columns exist.")
+    except OperationalError as e:
+        logging.error(f"Error: Could not check if columns exist. {e}")
         exit(1)
     finally:
         conn.close()
@@ -92,30 +84,37 @@ def create_database(db_name):
     conn.autocommit = True
     try:
         cur.execute(f"CREATE DATABASE {db_name};")
-    except OperationalError:
-        print(f"Error: Could not create '{db_name}' database.")
+    except OperationalError as e:
+        logging.error(f"Error: Could not create '{db_name}' database. {e}")
         exit(1)
+    finally:
+        conn.close()
 
 def create_table(db_name):
     conn, cur = connect_to_database(db_name)
-    cur.execute('CREATE TABLE posts (id VARCHAR(255) PRIMARY KEY,'
-                'created_at TIMESTAMP,'
-                'author_id VARCHAR(255),'
-                'name VARCHAR(50),'
-                'username VARCHAR(15),'
-                'description TEXT,'
-                'text TEXT);'
-                )
-    conn.commit()
+    try:
+        cur.execute('CREATE TABLE posts (id VARCHAR(255) PRIMARY KEY,'
+                    'created_at TIMESTAMP,'
+                    'author_id VARCHAR(255),'
+                    'name VARCHAR(50),'
+                    'username VARCHAR(15),'
+                    'description TEXT,'
+                    'text TEXT);'
+                    )
+        conn.commit()
+    except OperationalError as e:
+        logging.error(f"Error: Could not create 'posts' table. {e}")
+        exit(1)
+    finally:
+        conn.close()
 
 def drop_table(db_name):
     conn, cur = connect_to_database(db_name)
     try:
         cur.execute("DROP TABLE IF EXISTS posts;")
         conn.commit()
-    except OperationalError:
-        print("Error: Could not drop 'posts' table.")
+    except OperationalError as e:
+        logging.error(f"Error: Could not drop 'posts' table. {e}")
         exit(1)
     finally:
         conn.close()
-
