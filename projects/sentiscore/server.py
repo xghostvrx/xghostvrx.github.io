@@ -145,14 +145,16 @@ def get_posts():
         response['includes'] = {'users': filtered_users}
 
     # Store results in the database
-    store_results_in_db(filtered_posts)
+    store_results_in_db(filtered_posts, filtered_users)
 
     return response
 
-def store_results_in_db(posts):
+def store_results_in_db(posts, users):
     db_name = getenv('DB_NAME')
+    users_dict = {user['id']: user for user in users}  # Convert the list of users to a dictionary
     for post in posts:
-        insert_post(db_name, post)
+        user = users_dict.get(post['author_id'])  # Access the user using the 'author_id' key
+        insert_post(db_name, post, user)
 
 if __name__ == '__main__':
     initialize_server()

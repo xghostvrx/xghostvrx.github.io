@@ -122,14 +122,14 @@ def drop_table(db_name):
     finally:
         conn.close()
 
-def insert_post(db_name, post):
+def insert_post(db_name, post, user):
     conn, cur = connect_to_database(db_name)
     try:
         cur.execute("""
             INSERT INTO posts (id, created_at, author_id, name, username, description, text, polarity, subjectivity, sentiment)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (id) DO NOTHING;
-        """, (post.get('id'), post.get('created_at'), post.get('author_id'), post.get('name'), post.get('username'), post.get('description'), post.get('text'), post.get('polarity'), post.get('subjectivity'), post.get('sentiment')))
+        """, (post.get('id'), post.get('created_at'), post.get('author_id'), user.get('name'), user.get('username'), user.get('description'), post.get('text'), post.get('polarity'), post.get('subjectivity'), post.get('sentiment')))
         conn.commit()
     except OperationalError as e:
         logging.error(f"Error: Could not insert post into 'posts' table. {e}")
