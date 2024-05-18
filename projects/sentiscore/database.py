@@ -59,7 +59,7 @@ def check_table_exists(db_name):
 
 def check_columns(db_name):
     conn, cur = connect_to_database(db_name)
-    columns_to_check = ['id', 'created_at', 'author_id', 'name', 'username', 'description', 'text', 'polarity', 'subjectivity', 'sentiment_class']
+    columns_to_check = ['id', 'created_at', 'author_id', 'name', 'username', 'description', 'text', 'polarity', 'subjectivity', 'sentiment']
     try:
         for column in columns_to_check:
             cur.execute("""
@@ -102,7 +102,7 @@ def create_table(db_name):
                     'text TEXT,'
                     'polarity REAL,'
                     'subjectivity REAL,'
-                    'sentiment_class VARCHAR(10));'
+                    'sentiment VARCHAR(10));'
                     )
         conn.commit()
     except OperationalError as e:
@@ -119,5 +119,19 @@ def drop_table(db_name):
     except OperationalError as e:
         logging.error(f"Error: Could not drop 'posts' table. {e}")
         exit(1)
+    finally:
+        conn.close()
+
+def insert_post(db_name, post):
+    conn, cur = connect_to_database(db_name)
+    try:
+        cur.execute("""
+            INSERT INTO posts (id, created_at, author_id, name, username, description, text, polarity, subjectivity, sentiment)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (id) DO NOTHING;
+        """, (post.get('id'), post.get('created_at'), post.get('author_id'), post.get('name'), post.get('username'), post.get('description'), post.get('text'), post.get('polarity'), post.get('subjectivity'), post.get('sentiment')))
+        conn.commit()
+    except OperationalError as e:
+        logging.error(f"Error: Could not insert post into 'posts' table. {e}")
     finally:
         conn.close()

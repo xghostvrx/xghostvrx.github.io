@@ -2,8 +2,9 @@ import logging, json
 from os import getenv
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
+from psycopg import OperationalError
 from textblob import TextBlob
-from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table
+from database import check_columns, check_database_exists, connect_to_database, create_database, check_table_exists, create_table, drop_table, insert_post
 
 # Configure logging
 logging.basicConfig(filename='server.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
@@ -42,6 +43,26 @@ def load_json(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
     return data
+
+# Analyze sentiment of a text
+def analyze_sentiment(text):
+    blob = TextBlob(text)
+    sentiment = blob.sentiment
+    polarity = sentiment.polarity
+    subjectivity = sentiment.subjectivity
+
+    if polarity > 0:
+        sentiment_class = 'positive'
+    elif polarity < 0:
+        sentiment_class = 'negative'
+    else:
+        sentiment_class = 'neutral'
+
+    return {
+        'polarity': polarity,
+        'subjectivity': subjectivity,
+        'sentiment': sentiment_class
+    }
 
 # Predefined dictionary with acceptable keys and values
 # The keys are the acceptable arguments that can be passed in the request
@@ -105,6 +126,8 @@ def get_posts():
                         if filtered_user not in filtered_users:
                             filtered_users.append(filtered_user)
 
+                sentiment = analyze_sentiment(post['text'])
+                filtered_post.update(sentiment)
                 filtered_posts.append(filtered_post)
 
     # Prepare the response with the filtered posts
@@ -121,40 +144,15 @@ def get_posts():
     if user_fields[0]:
         response['includes'] = {'users': filtered_users}
 
+    # Store results in the database
+    store_results_in_db(filtered_posts)
+
     return response
 
-def analyze_sentiment(text):
-    blob = TextBlob(text)
-    sentiment = blob.sentiment
-    polarity = sentiment.polarity
-    subjectivity = sentiment.subjectivity
-
-    if polarity > 0:
-        sentiment_class = 'positive'
-    elif polarity < 0:
-        sentiment_class = 'negative'
-    else:
-        sentiment_class = 'neutral'
-
-    return {
-        'polarity': polarity,
-        'subjectivity': subjectivity,
-        'sentiment': sentiment_class
-    }
-
-# Retrieve data and perform sentiment analysis (pretend to get the data from an api service)
-with app.test_client() as client:
-    response = client.get('/tweets?ids=1668031228811800000,1668029197065800000,1668017215944130000,1668014822326140000,1668013802359490000,1668013122567780000,1668012189955810000,1668011771532040000,1668011185248120000,1668009508633750000,1668008743328510000,1668006873604280000,1668006548335930000,1668005894326480000,1668004568637080000,1668003032259260000,1667999474684390000,1667996790036000000,1667992787885620000,1667982248614730000&tweet.fields=id,created_at,author_id,text&user.fields=id,name,username,description')
-
-    # Perform sentiment analysis on each post
-    data = response.json  # Access the 'data' key directly from the response.json dictionary
-    for post in data:
-        text = post['text']
-        sentiment = analyze_sentiment(text)
-        post['sentiment'] = sentiment
-
-    # Print the modified response
-    print(response.json)
+def store_results_in_db(posts):
+    db_name = getenv('DB_NAME')
+    for post in posts:
+        insert_post(db_name, post)
 
 if __name__ == '__main__':
     initialize_server()
