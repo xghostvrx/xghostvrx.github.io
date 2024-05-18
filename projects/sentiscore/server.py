@@ -107,26 +107,26 @@ def get_posts():
         args['user.fields'] = user_fields
 
     # Filter posts based on 'ids' argument
-    posts = load_json('posts.json')
+    object = load_json('posts.json')
     filtered_posts = []
     filtered_users = []
     if 'ids' in args:
         ids = args['ids'].split(',')
         ids = [int(id) for id in ids]
-        for post in posts['data']:
-            if post['id'] in ids:
+        for index in object['data']:
+            if index['id'] in ids:
                 # Include the specified tweet fields (if requested in the arguments)
-                filtered_post = {key: post[key] for key in tweet_fields if key in post} if tweet_fields else post
+                filtered_post = {key: index[key] for key in tweet_fields if key in index} if tweet_fields else index
 
                 # Include the specified user fields (if requested in the arguments)
-                author_id = post['author_id']
-                for user in posts['includes']['users']:
+                author_id = index['author_id']
+                for user in object['includes']['users']:
                     if user['id'] == author_id:
                         filtered_user = {key: user[key] for key in user_fields if key in user} if user_fields else user
                         if filtered_user not in filtered_users:
                             filtered_users.append(filtered_user)
 
-                sentiment = analyze_sentiment(post['text'])
+                sentiment = analyze_sentiment(index['text'])
                 filtered_post.update(sentiment)
                 filtered_posts.append(filtered_post)
 
