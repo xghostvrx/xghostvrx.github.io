@@ -59,7 +59,7 @@ def check_table_exists(db_name):
 
 def check_columns(db_name):
     conn, cur = connect_to_database(db_name)
-    columns_to_check = ['id', 'created_at', 'author_id', 'name', 'username', 'description', 'text']
+    columns_to_check = ['id', 'created_at', 'author_id', 'name', 'username', 'description', 'text', 'polarity', 'subjectivity', 'sentiment_class']
     try:
         for column in columns_to_check:
             cur.execute("""
@@ -99,7 +99,10 @@ def create_table(db_name):
                     'name VARCHAR(50),'
                     'username VARCHAR(15),'
                     'description TEXT,'
-                    'text TEXT);'
+                    'text TEXT,'
+                    'polarity REAL,'
+                    'subjectivity REAL,'
+                    'sentiment_class VARCHAR(10));'
                     )
         conn.commit()
     except OperationalError as e:
