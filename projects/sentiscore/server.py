@@ -1,10 +1,9 @@
 import logging, json
 from os import getenv
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request
-from psycopg import OperationalError
+from flask import Flask, jsonify, request, render_template
 from textblob import TextBlob
-from database import check_columns, check_database_exists, connect_to_database, create_database, check_table_exists, create_table, drop_table, insert_post
+from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table, insert_post
 
 # Configure logging
 logging.basicConfig(filename='server.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
@@ -13,6 +12,7 @@ load_dotenv(override=True)
 
 app = Flask(__name__)
 
+# Initialize sever and check if the database and table exist
 def initialize_server():
     db_name = getenv('DB_NAME')
     try:
@@ -72,6 +72,11 @@ acceptable_args = {
     'tweet.fields': ['author_id', 'created_at', 'id', 'text'],
     'user.fields': ['created_at', 'description', 'id', 'name', 'username']
 }
+
+# Define the index
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 # Define endpoint for GET requests
 @app.route('/tweets', methods=['GET'])

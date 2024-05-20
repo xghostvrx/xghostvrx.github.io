@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="static/styles.css">
-    <script type="text/javascript" src="static/script.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>Sentiscore</title>
 </head>
-<body>
-    <p>This is some text.</p>
+<body class="crt">
+    <div class="monitor">
+        <div class="terminal" id="terminal">
+            <input class="input" id="input" type="text">
+        </div>
+    </div>
+    </div>
 </body>
 </html>
