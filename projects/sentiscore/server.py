@@ -2,8 +2,9 @@ import logging, json
 from os import getenv
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, render_template
+from psycopg import OperationalError
 from textblob import TextBlob
-from database import check_columns, check_database_exists, create_database, check_table_exists, create_table, drop_table, insert_post
+from database import check_columns, check_database_exists, connect_to_database, create_database, check_table_exists, create_table, drop_table, insert_post
 
 # Configure logging
 logging.basicConfig(filename='server.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
@@ -156,10 +157,11 @@ def get_posts():
 
 def store_results_in_db(posts, users):
     db_name = getenv('DB_NAME')
-    users_dict = {user['id']: user for user in users}  # Convert the list of users to a dictionary
+    users_dict = {user['id']: user for user in users if 'id' in user}
     for post in posts:
-        user = users_dict.get(post['author_id'])  # Access the user using the 'author_id' key
-        insert_post(db_name, post, user)
+        if 'author_id' in post:  # Check if 'author_id' key exists
+            user = users_dict.get(post['author_id'])  # Access the user using the 'author_id' key
+            insert_post(db_name, post, user)
 
 if __name__ == '__main__':
     initialize_server()
