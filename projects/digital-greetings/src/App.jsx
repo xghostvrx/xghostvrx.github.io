@@ -35,7 +35,7 @@ function App() {
     <>
       <div className='flex justify-center items-center h-screen'>
         <div className='text-center'>
-          {!showSurprise && <h1 className='text-5xl'>Guess what?!</h1>}
+          {!showSurprise && <h1 className='text-5xl mb-4'>Guess what?!</h1>}
           {showSurprise && <Confetti width={windowSize.width} height={windowSize.height} />}
           {showSurprise && <h1 className='text-5xl font-bold mb-4'>Happy Birthday, {name}!</h1>}
           {showSurprise && <h2 className='text-xl mb-4'>{message}</h2>}
