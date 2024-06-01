@@ -25,7 +25,7 @@ function App() {
           {!showSurprise && (
             <button
               onClick={handleButtonClick}
-              className='bg-slate-100 hover:bg-pink-500 hover:text-white py-2 px-4 rounded-lg button-effect'
+              className='bg-slate-100 hover:bg-pink-500 hover:text-white py-4 px-8 text-2xl rounded-lg button-effect'
             >
               Press for a Surprise
             </button>
