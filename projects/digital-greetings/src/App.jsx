@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Confetti from 'react-confetti';
-import landing from './assets/tejiendo-gatito.gif';
+import landing from './assets/landing.gif';
 import surprise from './assets/surprise.gif';
 
 function App() {
@@ -9,6 +9,12 @@ function App() {
   const handleButtonClick = () => {
     setShowSurprise(true);
   };
+
+  if (showSurprise) {
+    document.title = "Happy Birthday!";
+  } else {
+    document.title = "Guess what?!";
+  }
 
   return (
     <>
