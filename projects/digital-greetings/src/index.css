@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button-effect {
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+.button-effect:hover {
+    transform: scale(1.1);
+}
