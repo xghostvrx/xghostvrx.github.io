@@ -14,9 +14,10 @@ function App() {
     <>
       <div className='flex justify-center items-center h-screen'>
         <div className='text-center'>
-          <h1 className='text-5xl'>Guess what?!</h1>
+          {!showSurprise && <h1 className='text-5xl'>Guess what?!</h1>}
           {showSurprise && <Confetti />}
-          {showSurprise && <h1 className='text-5xl font-bold mb-4'>Happy Birthday</h1>}
+          {showSurprise && <h1 className='text-5xl font-bold mb-4'>Happy Birthday, Meri the cutie!</h1>}
+          {showSurprise && <h2 className='text-xl mb-4'>Surprise, baby! Today is going to be a fantastic day! I love you so much!</h2>}
           <img
             src={showSurprise ? surprise : landing}
             alt={showSurprise ? 'Surprise' : 'Tejiendo Gatito'}
