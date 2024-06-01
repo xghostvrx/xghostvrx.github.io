@@ -5,13 +5,15 @@ import surprise from './assets/surprise.gif';
 
 function App() {
   const [showSurprise, setShowSurprise] = useState(false);
+  const [name] = useState('Meri the cutie');
+  const [message] = useState('Surprise, baby! Today is going to be a fantastic day! I love you so much!');
 
   const handleButtonClick = () => {
     setShowSurprise(true);
   };
 
   if (showSurprise) {
-    document.title = "Happy Birthday!";
+    document.title = `Happy Birthday, ${name}!`;
   } else {
     document.title = "Guess what?!";
   }
@@ -22,8 +24,8 @@ function App() {
         <div className='text-center'>
           {!showSurprise && <h1 className='text-5xl'>Guess what?!</h1>}
           {showSurprise && <Confetti />}
-          {showSurprise && <h1 className='text-5xl font-bold mb-4'>Happy Birthday, Meri the cutie!</h1>}
-          {showSurprise && <h2 className='text-xl mb-4'>Surprise, baby! Today is going to be a fantastic day! I love you so much!</h2>}
+          {showSurprise && <h1 className='text-5xl font-bold mb-4'>Happy Birthday, {name}!</h1>}
+          {showSurprise && <h2 className='text-xl mb-4'>{message}</h2>}
           <img
             src={showSurprise ? surprise : landing}
             alt={showSurprise ? 'Surprise' : 'Tejiendo Gatito'}
