@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const Header = () => (
-    <header className="absolute w-full bg-transparent font-sans text-lg md:text-2xl text-white p-4 md:p-8">
+    <header className="absolute w-full bg-transparent font-sans text-lg md:text-2xl text-white p-4 md:p-8 z-20">
         <nav className="flex justify-between">
             <Link href="/" className='hover:text-black transition duration-300'>Sacred Spirituality</Link>
             <div className="flex space-x-10">
