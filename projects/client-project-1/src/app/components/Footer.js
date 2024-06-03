@@ -1,12 +1,13 @@
-// components/Footer.js
-import Link from 'next/link';
+'use client'
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 const Footer = () => (
     <footer className="flex flex-col md:flex-row justify-between items-center bg-white text-black text-center p-4 space-y-4 md:space-y-0">
         <div className="w-full md:w-auto text-center md:text-left">
             <ul className="space-y-2">
-                    <li className='underline hover:no-underline'><a href="https://squareup.com/appointments/book/25cxgqy11rmt2u/LGXFNZCX8XC4X/start">Appointments</a></li>
-
+                <li className='underline hover:no-underline'>
+                    <a href="https://squareup.com/appointments/book/25cxgqy11rmt2u/LGXFNZCX8XC4X/start">Appointments</a>
+                </li>
             </ul>
         </div>
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
@@ -31,13 +32,24 @@ const Footer = () => (
         </div>
         <div className="w-full md:w-auto text-center md:text-left">
             <ul className="space-y-2">
-                <li><Link href="#about" className='underline hover:no-underline'>About</Link></li>
-                <li><Link href="#services" className='underline hover:no-underline'>Services</Link></li>
-                <li><Link href="#testimonials" className='underline hover:no-underline'>Testimonials</Link></li>
+                <li>
+                    <ScrollLink to="about" smooth={true} duration={500} className='underline hover:no-underline'>
+                        About
+                    </ScrollLink>
+                </li>
+                <li>
+                    <ScrollLink to="services" smooth={true} duration={500} className='underline hover:no-underline'>
+                        Services
+                    </ScrollLink>
+                </li>
+                <li>
+                    <ScrollLink to="testimonials" smooth={true} duration={500} className='underline hover:no-underline'>
+                        Testimonials
+                    </ScrollLink>
+                </li>
             </ul>
         </div>
     </footer>
 );
 
 export default Footer;
-
