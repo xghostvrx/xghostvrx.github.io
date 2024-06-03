@@ -5,7 +5,8 @@ const Footer = () => (
     <footer className="flex flex-col md:flex-row justify-between items-center bg-white text-black text-center p-4 space-y-4 md:space-y-0">
         <div className="w-full md:w-auto text-center md:text-left">
             <ul className="space-y-2">
-                <li><Link href="/appointments" className='underline hover:no-underline'>Appointments</Link></li>
+                    <li className='underline hover:no-underline'><a href="https://squareup.com/appointments/book/25cxgqy11rmt2u/LGXFNZCX8XC4X/start">Appointments</a></li>
+
             </ul>
         </div>
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
@@ -28,7 +29,7 @@ const Footer = () => (
                 </a>
             </div>
         </div>
-        <div className="w-full md:w-auto text-center md:text-right">
+        <div className="w-full md:w-auto text-center md:text-left">
             <ul className="space-y-2">
                 <li><Link href="#about" className='underline hover:no-underline'>About</Link></li>
                 <li><Link href="#services" className='underline hover:no-underline'>Services</Link></li>

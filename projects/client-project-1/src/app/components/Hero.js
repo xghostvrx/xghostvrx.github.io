@@ -12,9 +12,11 @@ const Hero = () => {
                     <p className="mt-2 md:mt-4 p-1 text-white text-lg md:text-xl lg:text-2xl">
                         Discover the healing power of Reiki and embark on a journey of&nbsp;spiritual&nbsp;growth&nbsp;and&nbsp;self-discovery.
                     </p>
-                    <button className="mt-4 px-6 py-2 text-base md:text-lg lg:text-xl bg-white text-black rounded hover:bg-black hover:text-white transition duration-300">
-                        Book a Session
-                    </button>
+                    <a href="https://squareup.com/appointments/book/25cxgqy11rmt2u/LGXFNZCX8XC4X/start">
+                        <button className="mt-4 px-6 py-2 text-base md:text-lg lg:text-xl bg-white text-black rounded hover:bg-black hover:text-white transition duration-300">
+                            Book a Session
+                        </button>
+                    </a>
                 </div>
             </div>
         </section>
