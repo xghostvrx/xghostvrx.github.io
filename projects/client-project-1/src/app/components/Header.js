@@ -1,11 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Link as ScrollLink } from 'react-scroll';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import classNames from 'classnames';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -22,6 +23,29 @@ const Header = () => {
             document.body.classList.remove('overflow-hidden');
         };
     }, [menuOpen]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                const aboutSectionOffset = aboutSection.offsetTop;
+                if (window.scrollY > aboutSectionOffset) {
+                    setShowScrollToTop(true);
+                } else {
+                    setShowScrollToTop(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        scroll.scrollToTop();
+    }
 
     return (
         <header className="absolute w-full bg-transparent font-sans text-2xl text-white p-4 md:p-8">
@@ -97,6 +121,15 @@ const Header = () => {
                         Testimonials
                     </ScrollLink>
                 </div>
+            )}
+
+            {showScrollToTop && (
+                <button
+                    onClick={scrollToTop}
+                    className="fixed bottom-8 right-8 bg-black text-white p-3 rounded transition-opacity duration-300 opacity-75 hover:opacity-100"
+                >
+                    ↑
+                </button>
             )}
         </header>
     );
