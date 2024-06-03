@@ -11,7 +11,7 @@ const About = () => (
                 </button>
             </div>
             <div className="flex flex-col md:flex-row my-8 p-1">
-                <img src="https://placehold.co/250x250" alt="Image of a reiki space with candles" className="w-full md:w-1/2 lg:w-1/3 h-64 object-cover rounded mb-4 md:mb-0 md:mr-8 mx-auto border-8 border-black" />
+                <img src="/image-1.jpg" alt="Image of a reiki space with candles" className="w-full h-96 object-cover rounded mb-4 md:mb-0 md:mr-8 mx-auto  shadow-lg" />
                 <div className="text-center md:text-left">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl">Providing you a safe space to release</h3>
                     <p className="mt-2 md:mt-4 text-lg md:text-xl lg:text-2xl">
@@ -20,7 +20,7 @@ const About = () => (
                 </div>
             </div>
             <div className="flex flex-col md:flex-row-reverse my-8 p-1">
-                <img src="https://placehold.co/250x250" alt="Image of a reiki space with candles" className="w-full md:w-1/2 lg:w-1/3 h-64 object-cover rounded mb-4 md:mb-0 md:ml-8 mx-auto border-8 border-black" />
+                <img src="/image-2.jpg" alt="Image of a reiki space with candles" className="w-full h-80 object-cover rounded mb-4 md:mb-0 md:ml-8 mx-auto shadow-lg" />
                 <div className="text-center md:text-left">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl">In-person and remote options</h3>
                     <p className="mt-2 md:mt-4 text-lg md:text-xl lg:text-2xl">
