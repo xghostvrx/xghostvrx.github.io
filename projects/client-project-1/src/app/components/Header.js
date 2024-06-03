@@ -126,7 +126,7 @@ const Header = () => {
             {showScrollToTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-8 right-8 bg-black text-white p-3 rounded transition-opacity duration-300 opacity-75 hover:opacity-100"
+                    className="fixed right-6 bg-black text-white p-3 rounded transition-opacity duration-300 opacity-75 hover:opacity-100"
                 >
                     ↑
                 </button>
