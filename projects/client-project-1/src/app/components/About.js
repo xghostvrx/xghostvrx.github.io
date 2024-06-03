@@ -1,5 +1,5 @@
 const About = () => (
-    <section className="p-4 md:p-8 text-center">
+    <section className="p-4 md:p-8 bg-white text-center">
         <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Your Reiki Master</h2>
             <p className="mt-4 text-lg md:text-xl lg:text-2xl">
