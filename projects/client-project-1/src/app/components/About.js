@@ -1,5 +1,5 @@
 const About = () => (
-    <section className="p-4 md:p-8 bg-white text-center">
+    <section id="about" className="p-4 md:p-8 bg-white text-center">
         <div className="mx-auto max-w-screen-lg">
             <div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">What is Sacred Spirituality?</h2>
