@@ -4,7 +4,7 @@ const Hero = () => {
     return (
         <section className="parallax h-screen font-sans text-center text-white">
             <Header />
-            <div className="flex items-center justify-center min-h-screen bg-orange-200 bg-opacity-30">
+            <div className="flex items-center justify-center min-h-screen bg-slate-600 bg-opacity-30">
                 <div className="flex flex-col items-center justify-center h-full m-4 p-4">
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
                         Discover the Sacred Path to Spiritual&nbsp;Awareness
