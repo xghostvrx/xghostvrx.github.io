@@ -2,13 +2,13 @@
 import Link from 'next/link';
 
 const Footer = () => (
-    <footer className="flex justify-between items-center bg-white text-black text-center p-4">
-        <div>
-            <ul>
+    <footer className="flex flex-col md:flex-row justify-between items-center bg-white text-black text-center p-4 space-y-4 md:space-y-0">
+        <div className="w-full md:w-auto text-center md:text-left">
+            <ul className="space-y-2">
                 <li><Link href="/appointments" className='underline hover:no-underline'>Appointments</Link></li>
             </ul>
         </div>
-        <div className='flex'>
+        <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
             <div>
                 <a href="" className="group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" className="transition-colors duration-300 group-hover:text-red-500">
@@ -16,20 +16,20 @@ const Footer = () => (
                     </svg>
                 </a>
             </div>
-            <div className='mx-2'>
+            <div className="text-center md:text-left">
                 <h2 className='text-2xl font-bold'>Sacred Spirituality</h2>
                 <h3>Designed by Astroxios Software</h3>
             </div>
             <div>
-            <a href="" className="group">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="text-black group-hover:text-cyan-500 transition-colors duration-300">
-                    <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"></path>
-                </svg>
-            </a>
+                <a href="" className="group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="text-black group-hover:text-cyan-500 transition-colors duration-300">
+                        <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"></path>
+                    </svg>
+                </a>
             </div>
         </div>
-        <div>
-            <ul className='text-left'>
+        <div className="w-full md:w-auto text-center md:text-right">
+            <ul className="space-y-2">
                 <li><Link href="#about" className='underline hover:no-underline'>About</Link></li>
                 <li><Link href="#services" className='underline hover:no-underline'>Services</Link></li>
                 <li><Link href="#testimonials" className='underline hover:no-underline'>Testimonials</Link></li>
@@ -39,3 +39,4 @@ const Footer = () => (
 );
 
 export default Footer;
+
