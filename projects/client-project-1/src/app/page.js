@@ -12,6 +12,7 @@ export default function Home() {
       <Head>
         <title>Sacred Spirituality</title>
         <meta name="description" content="Unlock transformation. Book an appointment at Sacred Spirituality to unveil Reiki's healing power, seek energy work, and experience quality spiritual guidance." />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <Hero />
