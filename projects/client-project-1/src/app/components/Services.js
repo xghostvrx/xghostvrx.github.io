@@ -1,7 +1,8 @@
 const Services = () => (
     <section id="services" className="p-4 md:p-8 bg-gray-100 text-center">
         <div className="flex flex-col items-center mx-auto max-w-screen-lg">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">Services</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8
+            bg-gradient-to-r from-green-500 via-pink-500 to-yellow-500 inline-block text-transparent bg-clip-text">Services</h2>
 
             <div className="flex flex-wrap justify-center w-full">
                 <div className="m-4 p-4 flex flex-col items-center">

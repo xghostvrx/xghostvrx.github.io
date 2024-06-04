@@ -8,7 +8,8 @@ const About = () => {
         <section id="about" className="p-4 md:p-8 bg-white text-center">
             <div className="mx-auto max-w-screen-lg">
                 <div>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">What is Sacred Spirituality?</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold
+                    bg-gradient-to-r from-purple-600 via-orange-500 to-blue-400 inline-block text-transparent bg-clip-text">What is Sacred Spirituality?</h2>
                     <p className="mt-4 text-lg md:text-xl lg:text-2xl">
                         I am a spiritual counselor who provides quality life and motivational guidance. My passion for sacred spirituality is rooted in a deep reverence for the interconnectedness of all beings and the profound wisdom that resides within each of us. Through the ancient practice of Reiki, I act as a conduit for the universal life force energy, facilitating the natural healing process and restoring balance and harmony within the&nbsp;mind,&nbsp;body,&nbsp;and&nbsp;spirit.
                     </p>
@@ -26,7 +27,7 @@ const About = () => {
                                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
                                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                        <h2 className="text-2xl font-bold mb-4">Tapping Into Reiki's Healing Energy</h2>
+                                        <h2 className="text-2xl font-bold mb-4 text-yellow-500">Tapping Into Reiki's Healing Energy</h2>
                                         <p className="text-gray-700 mb-4">
                                             In our fast-paced, always-on world, it's easy to lose touch with ourselves and the natural flow of energy within and around us. Stress, negativity, and energy blockages can profoundly impact our mind, body and spirit in ways we may not even realize. Understanding the importance of restoring balance and allowing positive energy to flow freely is therefore important for our health.
                                         </p>

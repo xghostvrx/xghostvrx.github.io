@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import classNames from 'classnames';
 
@@ -50,13 +51,16 @@ const Header = () => {
     return (
         <header className="absolute w-full bg-transparent font-sans text-2xl text-white p-4 md:p-8">
             <nav className="flex justify-between">
-                <Link href="/" className='hover:text-black transition duration-300'>Sacred Spirituality</Link>
+                {/* Below link will not transition color due to nature of the SVG*/}
+                <Link href="/" className='hover:text-black transition duration-300'>
+                    <Image src="/logo.svg" alt="Sacred Spirituality" width={300} height={50} className="hover:filter hover:brightness-200" />
+                </Link>
                 <div className="hidden md:flex space-x-10">
                     <ScrollLink
                         to="about"
                         smooth={true}
                         duration={500}
-                        className='hover:text-black transition duration-300 cursor-pointer'
+                        className='hover:text-yellow-500 transition duration-300 cursor-pointer'
                     >
                         About
                     </ScrollLink>
@@ -65,7 +69,7 @@ const Header = () => {
                         to="services"
                         smooth={true}
                         duration={500}
-                        className='hover:text-black transition duration-300 cursor-pointer'
+                        className='hover:text-yellow-500 transition duration-300 cursor-pointer'
                     >
                         Services
                     </ScrollLink>
@@ -74,7 +78,7 @@ const Header = () => {
                         to="testimonials"
                         smooth={true}
                         duration={500}
-                        className='hover:text-black transition duration-300 cursor-pointer'
+                        className='hover:text-yellow-500 transition duration-300 cursor-pointer'
                     >
                         Testimonials
                     </ScrollLink>

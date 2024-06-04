@@ -18,8 +18,10 @@ const Footer = () => (
                     </svg>
                 </a>
             </div>
-            <div className="text-center md:text-left">
-                <h2 className='text-2xl font-bold'>Sacred Spirituality</h2>
+            <div className="text-center">
+                <ScrollLink to="landing" smooth={true} duration={500} className='hover:text-yellow-500 transition duration-300 hover:cursor-pointer'>
+                    <h2 className='text-2xl font-bold'>Sacred Spirituality</h2>
+                </ScrollLink>
                 <h3>Designed by Astroxios Software</h3>
             </div>
             <div>
@@ -33,17 +35,17 @@ const Footer = () => (
         <div className="w-full md:w-auto text-center md:text-left">
             <ul className="space-y-2">
                 <li>
-                    <ScrollLink to="about" smooth={true} duration={500} className='underline hover:no-underline'>
+                    <ScrollLink to="about" smooth={true} duration={500} className='underline hover:no-underline cursor-pointer'>
                         About
                     </ScrollLink>
                 </li>
                 <li>
-                    <ScrollLink to="services" smooth={true} duration={500} className='underline hover:no-underline'>
+                    <ScrollLink to="services" smooth={true} duration={500} className='underline hover:no-underline cursor-pointer'>
                         Services
                     </ScrollLink>
                 </li>
                 <li>
-                    <ScrollLink to="testimonials" smooth={true} duration={500} className='underline hover:no-underline'>
+                    <ScrollLink to="testimonials" smooth={true} duration={500} className='underline hover:no-underline cursor-pointer'>
                         Testimonials
                     </ScrollLink>
                 </li>
