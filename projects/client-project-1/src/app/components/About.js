@@ -46,7 +46,7 @@ const About = () => {
                                         {/* Add more paragraphs as needed */}
                                     </div>
                                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                        <button type="button" className="mt-3 w-full inline-flex justify-center rounded border border-transparent shadow-sm px-4 py-2 bg-gray-200 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
+                                        <button type="button" className="mt-3 w-full inline-flex justify-center rounded border border-transparent shadow-sm px-4 py-2 bg-gray-200 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors duration-200" onClick={() => setShowModal(false)}>
                                             Close
                                         </button>
                                     </div>
