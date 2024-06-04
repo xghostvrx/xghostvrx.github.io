@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const About = () => {
     const [showModal, setShowModal] = useState(false);
@@ -35,15 +36,14 @@ const About = () => {
                                             Reiki is an ancient Japanese healing modality that can help restore energetic harmony and promote profound levels of relaxation, reducing stress and pain while activating the body's innate ability to heal itself.
                                         </p>
                                         <p className="text-gray-700 mb-4">
-                                            The term Reiki translates to "universal life force energy," and the practice is based on the belief that we are all living, breathing sources of this vital force that animates all living beings. When our life force energy becomes blocked, stagnant or disrupted, we are more likely to experience a wide range of physical, mental and emotional issues. Reiki helps break up these energetic blockages and facilitates the free flow of energy once again.
+                                            The term Reiki translates to &quot;universal life force energy,&quot; and the practice is based on the belief that we are all living, breathing sources of this vital force that animates all living beings. When our life force energy becomes blocked, stagnant or disrupted, we are more likely to experience a wide range of physical, mental and emotional issues. Reiki helps break up these energetic blockages and facilitates the free flow of energy once again.
                                         </p>
                                         <p className="text-gray-700 mb-4">
-                                            "So many of the symptoms and conditions we experience, like pain, fatigue, anxiety and tension, are a result of our life force being out of balance and unable to circulate properly," explains Reiki Master Doris Bennett. "Through a Reiki session, we are able to dissolve the blockages and support the body's natural ability to heal and regulate itself."
+                                        &quot;So many of the symptoms and conditions we experience, like pain, fatigue, anxiety and tension, are a result of our life force being out of balance and unable to circulate properly,&quot; explains Reiki Master Doris Bennett. &quot;Through a Reiki session, we are able to dissolve the blockages and support the body's natural ability to heal and regulate itself.&quot;
                                         </p>
                                         <p className="text-purple-700 font-bold mb-4">
                                             If you have been feeling stuck or simply depleted, booking a Reiki session, meditation or spiritual consultation could be what you have been needing.
                                         </p>
-                                        {/* Add more paragraphs as needed */}
                                     </div>
                                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button type="button" className="mt-3 w-full inline-flex justify-center rounded border border-transparent shadow-sm px-4 py-2 bg-gray-200 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors duration-200" onClick={() => setShowModal(false)}>
@@ -57,7 +57,7 @@ const About = () => {
 
                 </div>
                 <div className="flex flex-col md:flex-row my-8 p-1">
-                    <img src="/image-1.jpg" alt="Image of a reiki space with candles" className="w-full h-96 object-cover rounded mb-4 md:mb-0 md:mr-8 mx-auto  shadow-lg" />
+                    <Image src="/image-1.jpg" alt="Image of a reiki space with candles" className="w-full h-96 object-cover rounded mb-4 md:mb-0 md:mr-8 mx-auto  shadow-lg" />
                     <div className="text-center md:text-left">
                         <h3 className="text-2xl md:text-3xl lg:text-4xl">Providing you a safe space to release</h3>
                         <p className="mt-2 md:mt-4 text-lg md:text-xl lg:text-2xl">
@@ -66,7 +66,7 @@ const About = () => {
                     </div>
                 </div>
                 <div className="flex flex-col md:flex-row-reverse my-8 p-1">
-                    <img src="/image-2.jpg" alt="Image of a reiki space with candles" className="w-full h-80 object-cover rounded mb-4 md:mb-0 md:ml-8 mx-auto shadow-lg" />
+                    <Image src="/image-2.jpg" alt="Image of a reiki space with candles" className="w-full h-80 object-cover rounded mb-4 md:mb-0 md:ml-8 mx-auto shadow-lg" />
                     <div className="text-center md:text-left">
                         <h3 className="text-2xl md:text-3xl lg:text-4xl">In-person and remote options</h3>
                         <p className="mt-2 md:mt-4 text-lg md:text-xl lg:text-2xl">

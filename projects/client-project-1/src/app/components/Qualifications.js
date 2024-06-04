@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const Qualifications = () => (
     <section id="qualifications" className="p-8 bg-gray-100 text-center">
         <div className="mx-auto max-w-screen-lg">
@@ -5,7 +7,7 @@ const Qualifications = () => (
             bg-gradient-to-r from-green-400 via-yellow-500 to-pink-600 inline-block text-transparent bg-clip-text">Meet Your Spiritual Counselor</h2>
             <div className="my-4">
                 <div className="rounded">
-                    <img src="/image-3.jpg" alt="Image of Doris Bennett" className="w-96 h-96 object-cover rounded-lg mx-auto shadow-lg" />
+                    <Image src="/image-3.jpg" alt="Image of Doris Bennett" className="w-96 h-96 object-cover rounded-lg mx-auto shadow-lg" />
                 </div>
                 <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mt-4 text-yellow-500">Doris Bennett</h3>
                 <p>Qualified Reiki Master & Spiritual Coach</p>
