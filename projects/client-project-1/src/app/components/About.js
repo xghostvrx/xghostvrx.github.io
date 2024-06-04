@@ -28,18 +28,18 @@ const About = () => {
                                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
                                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                        <h2 className="text-2xl font-bold mb-4 text-yellow-500">Tapping Into Reiki's Healing Energy</h2>
+                                        <h2 className="text-2xl font-bold mb-4 text-yellow-500">Tapping Into Reiki&apos;s Healing Energy</h2>
                                         <p className="text-gray-700 mb-4">
-                                            In our fast-paced, always-on world, it's easy to lose touch with ourselves and the natural flow of energy within and around us. Stress, negativity, and energy blockages can profoundly impact our mind, body and spirit in ways we may not even realize. Understanding the importance of restoring balance and allowing positive energy to flow freely is therefore important for our health.
+                                            In our fast-paced, always-on world, it&apos;s easy to lose touch with ourselves and the natural flow of energy within and around us. Stress, negativity, and energy blockages can profoundly impact our mind, body and spirit in ways we may not even realize. Understanding the importance of restoring balance and allowing positive energy to flow freely is therefore important for our health.
                                         </p>
                                         <p className="text-gray-700 mb-4">
-                                            Reiki is an ancient Japanese healing modality that can help restore energetic harmony and promote profound levels of relaxation, reducing stress and pain while activating the body's innate ability to heal itself.
+                                            Reiki is an ancient Japanese healing modality that can help restore energetic harmony and promote profound levels of relaxation, reducing stress and pain while activating the body&apos;s innate ability to heal itself.
                                         </p>
                                         <p className="text-gray-700 mb-4">
                                             The term Reiki translates to &quot;universal life force energy,&quot; and the practice is based on the belief that we are all living, breathing sources of this vital force that animates all living beings. When our life force energy becomes blocked, stagnant or disrupted, we are more likely to experience a wide range of physical, mental and emotional issues. Reiki helps break up these energetic blockages and facilitates the free flow of energy once again.
                                         </p>
                                         <p className="text-gray-700 mb-4">
-                                        &quot;So many of the symptoms and conditions we experience, like pain, fatigue, anxiety and tension, are a result of our life force being out of balance and unable to circulate properly,&quot; explains Reiki Master Doris Bennett. &quot;Through a Reiki session, we are able to dissolve the blockages and support the body's natural ability to heal and regulate itself.&quot;
+                                        &quot;So many of the symptoms and conditions we experience, like pain, fatigue, anxiety and tension, are a result of our life force being out of balance and unable to circulate properly,&quot; explains Reiki Master Doris Bennett. &quot;Through a Reiki session, we are able to dissolve the blockages and support the body&apos;s natural ability to heal and regulate itself.&quot;
                                         </p>
                                         <p className="text-purple-700 font-bold mb-4">
                                             If you have been feeling stuck or simply depleted, booking a Reiki session, meditation or spiritual consultation could be what you have been needing.
